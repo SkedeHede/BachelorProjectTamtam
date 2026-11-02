@@ -1,0 +1,37 @@
+Undersøg: Hvordan påvirker forskellige niveauer og fordelinger af DDoS trafik serverens latenstid, throughput og tilgængelighed (PUNKT NR. 3)
+
+Undersøg: Hvor effektivt kan udvalgte detektions og mitigeringsmetoder identificere og begrænse angrebstraffiken? (PUNKT NR. 4)
+
+Undersøg: hvordan påvirker mitigeringen legitime klienter? herunder falske positive og successraten for legitime requests. (PUNKT NR. 5)
+
+Undersøg: Hvilke grænser kan sættes, for at skelne imellem reel trafik og DDoS
+
+plan:
+1. Sæt server op og legitime klienter
+1.5 Gem gennemsnits latens/hastighed og median latens/hastighed. Også throughput
+
+2. tilføj Angrebsklienter i forskellige rater (alt sammen over 5 eller 10 minutter):
+1 klient, 10.000 requests
+10 klienter, 1.000 requests
+100 klienter, 100 requests
+
+3. mål for hver af disse gennemsnits latens/hastighed og median latens/hastighed. også throughput
+
+4. Anvend mitigeringsmetoder (rate limiting og Traffic filtering)
+
+5. mål igen data fra serveren og sammenlign bade med baseline (punkt 1.5) og uden mitigeringsmetoder
+
+________________________________________________________________________________________________________________
+
+Afklaring:
+
+Server type: HTTP Server
+Legitim klient: Klienter sender GET og ACKs. 
+Måling af data: Server sender billed/besked på ca. 10 kB (svarer til 10 MB/s med 1000 requests/s).
+Hvilket data måler vi:
+1. latenstid (fra get request sendt til hele svaret modtaget til klient)
+2. Roundtrip time (fra get modtager på serveren til ACK modtaget på serveren)
+3. Throughput målt i successfulde requests per sekund
+4. successrate (successfulde requests delt med totale requests)
+5. antal timeouts (totalt)
+6. muligvis serverens ressourcer (CPU forbrug, RAM forbrug osv.)
