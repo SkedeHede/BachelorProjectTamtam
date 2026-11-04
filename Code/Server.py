@@ -10,16 +10,21 @@ def handle_client(connection, address):
     print(f"Connected: {address}")
 
     with connection:
-        while True:
-            data = connection.recv(1024) #skal måske ændres, da recv ikke altid svarer til én requests. måske newline?
+        with connection.makefile("rb") as reader:
+            while True:
+                data = reader.readline()
 
-            if not data:
-                break
+                if not data:
+                    break
 
-            print(f"Received from {address}: {data.decode()}")
-            connection.sendall(b"ACK")
+                message = data.decode().strip()
+
+                print(f"Received from {address}: {message}")
+
+                connection.sendall(b"ACK\n")
 
     print(f"Disconnected: {address}")
+
 
 #selve serveren
 def start_server():

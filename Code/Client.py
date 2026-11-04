@@ -17,8 +17,7 @@ def send_requests(num_requests, interval):
             client.connect((SERVER_IP, PORT))
 
             for i in range(num_requests):
-                message = f"Request {i + 1}".encode()
-
+                message = f"Request {i + 1}\n".encode() #newline for at kunne skelne mellem pakker
                 start_time = time.perf_counter()
 
                 client.sendall(message)
