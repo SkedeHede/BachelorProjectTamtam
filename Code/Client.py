@@ -1,21 +1,22 @@
 #Implementerer legitime klienter, som sender requests og måler svartider
 import socket
 import time
+import argparse #bib til at læse argumenter i terminalen
 
 SERVER_IP = "10.0.0.1"
 PORT = 5000
 
-NUM_REQUESTS = 3
 
 
-def send_requests():
+
+def send_requests(num_requests, interval):
     try:
         # Create TCP connection
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
             client.settimeout(5)
             client.connect((SERVER_IP, PORT))
 
-            for i in range(NUM_REQUESTS):
+            for i in range(num_requests):
                 message = f"Request {i + 1}".encode()
 
                 start_time = time.perf_counter()
@@ -34,7 +35,8 @@ def send_requests():
                 print(f"Request {i + 1}: {response.decode()}")
                 print(f"Response time: {latency:.3f} ms")
 
-                time.sleep(1)
+                if i < num_requests - 1:
+                    time.sleep(interval)
 
     except socket.timeout:
         print("Request timed out")
@@ -43,5 +45,31 @@ def send_requests():
         print(f"Connection error: {error}")
 
 
+
 if __name__ == "__main__":
-    send_requests()
+    parser = argparse.ArgumentParser(
+        description="Legitimate TCP client for Mininet DDoS experiments"
+    )
+
+    parser.add_argument( #antal requests kan angives i terminalen
+        "--requests",
+        type=int,
+        default=3,
+        choices=range(1, 6), #mellem 1-5 requests
+        help="Number of requests (1-5)"
+    ) 
+
+    parser.add_argument( #hardcoded 1s mellem hvert request
+        "--interval",
+        type=float,
+        default=1.0,
+        help="Seconds between requests"
+    )
+
+    args = parser.parse_args()
+
+    if args.interval < 0:
+        parser.error("--interval must be non-negative")
+
+    send_requests(args.requests, args.interval)
+

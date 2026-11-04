@@ -11,7 +11,7 @@ def handle_client(connection, address):
 
     with connection:
         while True:
-            data = connection.recv(1024)
+            data = connection.recv(1024) #skal måske ændres, da recv ikke altid svarer til én requests. måske newline?
 
             if not data:
                 break
