@@ -16,27 +16,27 @@ def send_requests(num_requests, interval, client_id):
     try:
         # Create TCP connection
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
-            client.settimeout(5)
+            client.settimeout(5) #timeout grænse
             client.connect((SERVER_IP, PORT))
 
             with client.makefile("rb") as reader:
                 for i in range(num_requests):
                     message = f"Request {i + 1}\n".encode()
 
-                    start_time = time.perf_counter()
+                    start_time = time.perf_counter() #tidspunkt efter afsendelse (i sekunder)
 
                     client.sendall(message)
                     response = reader.readline()
 
-                    end_time = time.perf_counter()
+                    end_time = time.perf_counter() #tidspunkt efter modtagelse
 
                     if not response:
                         print("Server closed the connection")
                         break
 
-                    latency = (end_time - start_time) * 1000
+                    latency = (end_time - start_time) * 1000 #1000 for at få millisekunder
 
-                    print(f"Request {i + 1}: {response.decode().strip()}")
+                    print(f"Request {i + 1}: {response.decode().strip()}") 
                     print(f"Response time: {latency:.3f} ms")
 
                     log_request(
