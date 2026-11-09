@@ -15,26 +15,6 @@ class RequestHandler(BaseHTTPRequestHandler):
     def log_message(self, format, *args):
         return  #Deaktiverer standard logning af HTTP-requests, så serveren ikke logger hver request til konsollen
 
-#threading
-def handle_client(connection, address):
-    print(f"Connected: {address}")
-
-    with connection:
-        with connection.makefile("rb") as reader:
-            while True:
-                data = reader.readline()
-
-                if not data:
-                    break
-
-                message = data.decode().strip()
-
-                print(f"Received from {address}: {message}")
-
-                connection.sendall(b"ACK\n")
-
-    print(f"Disconnected: {address}")
-
 
 #selve serveren
 def start_server():
