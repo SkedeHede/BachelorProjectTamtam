@@ -1,9 +1,19 @@
-#Implementerer TCP-serveren, som skal modtage og besvare requests
-import socket
-import threading
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 HOST = "0.0.0.0"
 PORT = 5000
+data = b"A" * 10240 #Data, der sendes som svar til klienten (10240 bytes ≈ 10 KB)
+
+class RequestHandler(BaseHTTPRequestHandler):
+    def do_GET(self): #Håndterer HTTP GET-requests
+        self.send_response(200) #Returnerer en 200 OK statuskode, som fortæller at serveren har modtaget og forstået requesten
+        self.send_header("Content-type", "text/plain") #Angiver at indholdet af svaret er almindelig tekst
+        self.send_header("Content-Length", str(len(data)))
+        self.end_headers() #Afslutter HTTP-headeren, så serveren kan begynde at sende selve svaret
+        self.wfile.write(data) #Sender data som svar til klienten
+
+    def log_message(self, format, *args):
+        return  #Deaktiverer standard logning af HTTP-requests, så serveren ikke logger hver request til konsollen
 
 #threading
 def handle_client(connection, address):
@@ -28,33 +38,11 @@ def handle_client(connection, address):
 
 #selve serveren
 def start_server():
-    # Create TCP socket
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server = ThreadingHTTPServer((HOST, PORT), RequestHandler)
 
-    # Allow address reuse
-    server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    print(f"HTTP Server listening on port {PORT}")
 
-    # Bind socket to address and port
-    server.bind((HOST, PORT))
-
-    # Listen for incoming connections
-    server.listen(10)
-
-    print(f"Server listening on port {PORT}")
-
-    while True:
-        #accept a client connection
-        connection, address = server.accept()
-
-        #create a thread for client
-        client_thread = threading.Thread(
-            target=handle_client,
-            args=(connection, address),
-            daemon=True
-        )
-
-        # Start the thread
-        client_thread.start()
+    server.serve_forever()
 
 
 
