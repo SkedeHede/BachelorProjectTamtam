@@ -1,59 +1,97 @@
-# Implementerer legitime klienter, som sender requests og måler svartider
-import socket
-import time
-import argparse
+# Implementerer legitime HTTP-klienter, som sender GET-requests til serveren og måler latenstid
+import time         #Bruges til tidsmåling og pauser mellem requests
+import argparse     #Bruges til at angive parametre ved kørsel af programmet
+import http.client  #Bruges til at sende HTTP-requests og modtage HTTP-responses
 
 #Importerer nødvendige biblioteker til at gemme i CSV-filer
 import csv
 from datetime import datetime
 from pathlib import Path
 
+#Serveren IP og port i mininet
 SERVER_IP = "10.0.0.1"
-PORT = 5000
+SERVER_PORT = 5000
 
 
 def send_requests(num_requests, interval, client_id):
-    try:
-        # Create TCP connection
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
-            client.settimeout(5) #timeout grænse
-            client.connect((SERVER_IP, PORT))
+    #Sender det angivne antal HTTP-requests til serveren
+    for i in range(num_requests):
+        connection = None #Initialiserer forbindelsen som None, så den kan lukkes i finally-blokken
+        try:
+            
+            connection = http.client.HTTPConnection(SERVER_IP, SERVER_PORT, timeout=5) #Opretter en HTTP-forbindelse til serveren med en timeout på 5 sekunder
 
-            with client.makefile("rb") as reader:
-                for i in range(num_requests):
-                    message = f"Request {i + 1}\n".encode()
+            start_time = time.perf_counter() #Starter tidsmåling for latenstid
 
-                    start_time = time.perf_counter() #tidspunkt efter afsendelse (i sekunder)
+            connection.request("GET", "/") #Sender en HTTP GET-request til serverens rod ("/")
+            response = connection.getresponse() #Modtager HTTP-responsen fra serveren
+            data = response.read() #Læser data for HTTP-responsen, som sendes fra serveren (Forventet 10240 bytes ≈ 10 KB)
 
-                    client.sendall(message)
-                    response = reader.readline()
+            end_time = time.perf_counter() #Stopper tidsmåling for latenstid
 
-                    end_time = time.perf_counter() #tidspunkt efter modtagelse
+            latency_ms = (end_time - start_time) * 1000 #Udregner latenstid i millisekunder
 
-                    if not response:
-                        print("Server closed the connection")
-                        break
+            #Tjekker om HTTP-responsen er 200 OK og om dataens længde er 10240 bytes, som forventet. 
+            #Hvis begge betingelser er opfyldt, markeres requesten som SUCCESS, ellers som FAILED.
+            if response.status == 200 and len(data) == 10240:
+                status = "SUCCESS"
+            else:
+                status = "FAILED"
 
-                    latency = (end_time - start_time) * 1000 #1000 for at få millisekunder
+            #Udskriver resultatet af requesten i terminalen
+            print(f"Request {i + 1}: {status} | HTTP {response.status} | {len(data)} bytes | Latency: {latency_ms:.3f} ms")
 
-                    print(f"Request {i + 1}: {response.decode().strip()}") 
-                    print(f"Response time: {latency:.3f} ms")
+            #Gemmer requestnummer, latenstid og status i en CSV-logfil for den pågældende klient
+            log_request(
+                client_id=client_id,
+                request_id=i + 1,
+                latency=latency_ms,
+                status=status
+            )
 
-                    log_request(
-                        client_id=client_id,
-                        request_id=i + 1,
-                        latency=latency,
-                        status="SUCCESS"
-                    )
+        #Registrerer timeout, hvis serveren ikke svarer inden for 5 sekunder, og gemmer dette i logfilen istedet
+        except TimeoutError:
+            print(f"Request {i + 1}: TIMEOUT")
 
-                    if i < num_requests - 1:
-                        time.sleep(interval)
+            log_request(
+                client_id=client_id,
+                request_id=i + 1,
+                latency=None,
+                status="TIMEOUT"
+            )
 
-    except socket.timeout:
-        print("Request timed out")
+        #Registrerer netværksfejl, hvis forbindelsen til serveren ikke kan oprettes, og gemmer dette i logfilen istedet
+        except OSError as error:
+            print(f"Request {i + 1}: CONNECTION_ERROR - {error}")
 
-    except OSError as error:
-        print(f"Connection error: {error}")
+            log_request(
+                client_id=client_id,
+                request_id=i + 1,
+                latency=None,
+                status="CONNECTION_ERROR"
+            )
+
+        #Registrerer HTTP-fejl, hvis der opstår en fejl i HTTP-kommunikationen, og gemmer dette i logfilen istedet
+        except http.client.HTTPException as error:
+            print(f"Request {i + 1}: HTTP_ERROR - {error}")
+
+            log_request(
+                client_id=client_id,
+                request_id=i + 1,
+                latency=None,
+                status="HTTP_ERROR"
+            )
+
+        #Lukker HTTP-forbindelsen til serveren, uanset om requesten lykkedes eller fejlede
+        finally:
+            if connection is not None:
+                connection.close()
+
+        #Venter det angivne interval mellem requests, medmindre det er den sidste request
+        if i < num_requests - 1:
+            time.sleep(interval)
+
+        
 
 
 def log_request(client_id, request_id, latency, status):
