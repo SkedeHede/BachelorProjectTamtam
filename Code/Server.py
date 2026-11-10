@@ -1,8 +1,9 @@
+#https://docs.python.org/3/library/http.server.html
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
-
+#http.server er beregnet til brug af udvikling og test, ikke produktion (grundet sikkerhed)
 HOST = "0.0.0.0"
 PORT = 5000
-data = b"A" * 10240 #Data, der sendes som svar til klienten (10240 bytes ≈ 10 KB)
+data = b"A" * 10240 #Data, der sendes som svar til klienten (10*1024 = 10240 bytes ≈ 10 KB)
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self): #Håndterer HTTP GET-requests
@@ -18,7 +19,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
 #selve serveren
 def start_server():
-    server = ThreadingHTTPServer((HOST, PORT), RequestHandler)
+    server = ThreadingHTTPServer((HOST, PORT), RequestHandler) #threadingHTTPServer bruger TCP som kommunikation
 
     print(f"HTTP Server listening on port {PORT}")
 
