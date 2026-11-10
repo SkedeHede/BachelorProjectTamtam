@@ -4,6 +4,8 @@ from mininet.node import OVSBridge
 from mininet.cli import CLI
 from mininet.log import setLogLevel
 
+import argparse
+
 
 def create_network(num_clients=2): #hardcoded number of clients
     net = Mininet(controller=None, switch=OVSBridge)
@@ -39,5 +41,21 @@ def create_network(num_clients=2): #hardcoded number of clients
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser(
+        description="Mininet network topology"
+    )
+
+    parser.add_argument(
+        "--amount-of-clients",
+        type=int,
+        default=2,
+        help="Number of clients to create"
+    )
+
+    args = parser.parse_args()
+
+    if args.amount_of_clients < 1:
+        parser.error("--amount-of-clients must be positive")
+
     setLogLevel("info")
-    create_network(num_clients=2)
+    create_network(num_clients=args.amount_of_clients)
