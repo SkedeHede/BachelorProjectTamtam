@@ -1,0 +1,4 @@
+# Python dependencies for packet capture and packet construction.
+# Mininet and libpcap are Ubuntu system dependencies (see setup.sh).
+scapy==2.8.0
+
