@@ -1,0 +1,1 @@
+1) Lave en Experiment.py, så vi ikke skal skrive alle opstartskommandoerne hver gang
