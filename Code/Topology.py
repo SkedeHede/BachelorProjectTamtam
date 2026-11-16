@@ -7,7 +7,7 @@ from mininet.log import setLogLevel
 import argparse
 
 
-def create_network(num_clients=2): #hardcoded number of clients
+def create_network(num_clients=2, num_attackers=1): #hardcoded number of clients
     net = Mininet(controller=None, switch=OVSBridge)
 
     #Create server
@@ -26,6 +26,12 @@ def create_network(num_clients=2): #hardcoded number of clients
             ip=f"10.0.0.{i + 1}"
         )
         net.addLink(client, switch)
+    for i in range(1, num_attackers + 1):
+        attacker = net.addHost(
+            f"attacker{i}",
+            ip=f"10.0.0.{i + 101}/24"
+        )
+        net.addLink(attacker, switch)
 
     #Start network
     net.start()

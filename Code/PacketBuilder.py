@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-from scapy.all import IP, TCP, ls, send
-=======
 from scapy.all import IP, TCP, ls, wrpcap, rdpcap
->>>>>>> 142c515de0efcde44673a92b05984bd7d12ec667
 
 #ls(IP) #tjek IP felter
 #ls(TCP) #tjek TCP felter
@@ -14,9 +10,6 @@ packet = IP(dst=Server_ip) / TCP(sport=12345,dport=Server_port,flags="S") #S st√
 IP(bytes(packet)).show()
 packet.show() #check pakken
 
-<<<<<<< HEAD
-send(packet, count=1, verbose=True)
-=======
 #Gemmer pakken i en pcap fil
 wrpcap("packet.pcap", packet)
 print("Packet saved to packet.pcap")
@@ -33,6 +26,5 @@ for p in loaded_packets:
         print(f"Destination port: {p[TCP].dport}")
         print(f"TCP flags: {p[TCP].flags}")
 
->>>>>>> 142c515de0efcde44673a92b05984bd7d12ec667
 
 #mangler at lave attacker klient der pr√∏ver dem af
