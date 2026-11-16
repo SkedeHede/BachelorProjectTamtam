@@ -5,13 +5,14 @@ from scapy.all import IP, TCP, ls, wrpcap, rdpcap
 Server_ip = "10.0.0.1"
 Server_port = 5000
 
-packet = IP(dst=Server_ip) / TCP(sport=12345,dport=Server_port,flags="S") #S står for "SYN-flag"
-
-IP(bytes(packet)).show()
-packet.show() #check pakken
+def build_syn_packet(server_ip, server_port, source_port):
+    packet = IP(dst=Server_ip) / TCP(sport=12345,dport=Server_port,flags="S") #S står for "SYN-flag"
+    return packet
+    # IP(bytes(packet)).show()
+    # packet.show() #check pakken
 
 #Gemmer pakken i en pcap fil
-wrpcap("packet.pcap", packet)
+wrpcap("packet.pcap", build_syn_packet(Server_ip, Server_port, source_port=12345))
 print("Packet saved to packet.pcap")
 
 #Indlæs pakken fra pcap filen
@@ -27,4 +28,4 @@ for p in loaded_packets:
         print(f"TCP flags: {p[TCP].flags}")
 
 
-#mangler at lave attacker klient der prøver dem af
+    #mangler at lave attacker klient der prøver dem af

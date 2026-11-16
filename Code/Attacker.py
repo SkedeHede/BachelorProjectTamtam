@@ -29,4 +29,5 @@ def send_one_syn():
 
     send(packet, count=1, verbose=True)
 
-
+if __name__ == "__main__":
+    send_one_syn()
