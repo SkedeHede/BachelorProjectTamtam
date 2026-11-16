@@ -7,7 +7,7 @@ from mininet.log import setLogLevel
 import argparse
 
 
-def create_network(num_clients=2, num_attackers=1): #hardcoded number of clients
+def create_network(num_clients=2, num_attackers=1, interactive=True): #hardcoded number of clients
     net = Mininet(controller=None, switch=OVSBridge)
 
     #Create server
@@ -39,11 +39,11 @@ def create_network(num_clients=2, num_attackers=1): #hardcoded number of clients
     print("Network started!")
     net.pingAll()
 
-    #Open Mininet CLI
-    CLI(net)
+    if interactive:
+        CLI(net)
+        net.stop()
 
-    #Stop network
-    net.stop()
+    return net
 
 
 if __name__ == "__main__":

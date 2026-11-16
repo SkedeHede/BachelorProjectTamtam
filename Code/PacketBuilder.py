@@ -6,7 +6,7 @@ Server_ip = "10.0.0.1"
 Server_port = 5000
 
 def build_syn_packet(server_ip, server_port, source_port):
-    packet = IP(dst=Server_ip) / TCP(sport=12345,dport=Server_port,flags="S") #S står for "SYN-flag"
+    packet = IP(dst=Server_ip) / TCP(source_port,Server_port,flags="S") #S står for "SYN-flag"
     return packet
     # IP(bytes(packet)).show()
     # packet.show() #check pakken
