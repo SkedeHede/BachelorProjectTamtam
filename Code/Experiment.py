@@ -27,6 +27,15 @@ def start_clients(net, num_clients, requests):
     return processes
 
 
+def start_Capture(server):
+    process = server.popen(
+
+    ".venv/bin/python",
+    "-u",
+    "Code/PacketCapture.py"
+    )
+
+    return process
 
 def main():
     net = create_network(
@@ -39,14 +48,17 @@ def main():
         start_server(server)
         time.sleep(1)
 
+        capture_process = start_Capture(server)
+        time.sleep(1)
+
         processes = start_clients(net, num_clients=2, requests=10)
 
         for process in processes:
             process.wait()
-
+        capture_process.wait()
     finally:
         net.stop()
-
+    
 
 if __name__ == "__main__":
     main()

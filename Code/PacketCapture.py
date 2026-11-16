@@ -4,7 +4,7 @@ from scapy.all import sniff, wrpcap, IP, TCP
 packets = sniff(
     iface="server-eth0", #Serverens netværksinterface (server-eth0 for mininet)
     filter="tcp port 5000", #Filtrer kun TCP-pakker (tcp port 5000)
-    count=20 #Antal pakker der skal opfanges
+    timeout=10 #Tidsgrænse for opfangning
 )
 
 #Gem de opfangede pakkerserver .venv/bin/python -u Code/PacketCapture.py &
