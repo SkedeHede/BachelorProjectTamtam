@@ -54,8 +54,11 @@ def main():
         processes = start_clients(net, num_clients=2, requests=10)
 
         for process in processes:
-            process.wait()
-        capture_process.wait()
+            exit_code = process.wait()
+            print(f"Client exit code: {exit_code}")
+
+        capture_exit_code = capture_process.wait()
+        print(f"PacketCapture exit code: {capture_exit_code}")
     finally:
         net.stop()
     
