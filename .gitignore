@@ -2,3 +2,10 @@
 .direnv/
 __pycache__/
 *.py[cod]
+
+# Packet captures
+*.pcap
+*.pcapng
+
+# Debug files
+mininet_debug.log

@@ -1,27 +1,28 @@
 from Topology import create_network
 import time
+from mininet.log import setLogLevel #for at teste fejl
 
 #Udfører kommando til at starte server
 def start_server(server):
     server.cmd("python3 Code/Server.py &")
 
 #Udfører kommando til at starte en klient
-def start_client(client, requests):
+def start_client(client, duration):
     process = client.popen(
     "python3",
     "Code/Client.py",
-    "--requests", str(requests),
+    "--duration", str(duration),
     "--interval", "0.5",
     "--client-id", client.name
     )
     return process
 
-def start_clients(net, num_clients, requests):
+def start_clients(net, num_clients, duration):
     processes = []
 
     for i in range(1, num_clients + 1):
         client = net.get(f"client{i}")
-        process = start_client(client, requests)
+        process = start_client(client, duration)
         processes.append(process)
 
     return processes
@@ -39,8 +40,8 @@ def start_Capture(server):
 
 def main():
     net = create_network(
-        num_clients=2,
-        num_attackers=1,
+        num_clients=100, #ændret for nu
+        num_attackers=0, #0 for baseline experimentet
         interactive=False
     )
     try:
@@ -51,7 +52,7 @@ def main():
         capture_process = start_Capture(server)
         time.sleep(1)
 
-        processes = start_clients(net, num_clients=2, requests=10)
+        processes = start_clients(net, num_clients=100, duration=300)
 
         for process in processes:
             exit_code = process.wait()
@@ -64,4 +65,5 @@ def main():
     
 
 if __name__ == "__main__":
+    setLogLevel("debug") #test fejl.
     main()

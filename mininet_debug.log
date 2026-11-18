@@ -1,0 +1,1873 @@
+*** errRun: ['grep', '-c', 'processor', '/proc/cpuinfo'] 
+8
+  0*** Setting resource limits
+*** errRun: ['which', 'mnexec'] 
+/usr/bin/mnexec
+  0*** errRun: ['which', 'ifconfig'] 
+/usr/sbin/ifconfig
+  0_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:server'] 42442*** server : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** errRun: ['which', 'ovs-vsctl'] 
+/usr/bin/ovs-vsctl
+  0*** errRun: ['ovs-vsctl', '-t', '1', 'show'] 
+55a2e79d-75f4-4ed3-9d90-e20757ec4e0f
+    ovs_version: "3.7.1"
+  0*** errRun: ['ovs-vsctl', '--version'] 
+ovs-vsctl (Open vSwitch) 3.7.1
+DB Schema 8.8.0
+  0_popen ['mnexec', '-cd', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:s1'] 42447*** s1 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+
+added intf lo (0) to node s1
+*** s1 : ('ifconfig', 'lo', 'up')
+*** server : ('ip link add name server-eth0 address 8e:6d:a7:97:d3:e7 type veth peer name s1-eth1 address 4a:ac:8a:83:d6:76 netns 42447',)
+
+added intf server-eth0 (0) to node server
+moving server-eth0 into namespace for server 
+*** server : ('ifconfig', 'server-eth0', 'up')
+
+added intf s1-eth1 (1) to node s1
+*** s1 : ('ifconfig', 's1-eth1', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client1'] 42455*** client1 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client1 : ('ip link add name client1-eth0 address 26:d8:69:89:8b:fe type veth peer name s1-eth2 address 0e:d1:e6:01:89:be netns 42447',)
+
+added intf client1-eth0 (0) to node client1
+moving client1-eth0 into namespace for client1 
+*** client1 : ('ifconfig', 'client1-eth0', 'up')
+
+added intf s1-eth2 (2) to node s1
+*** s1 : ('ifconfig', 's1-eth2', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client2'] 42476*** client2 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client2 : ('ip link add name client2-eth0 address 46:75:84:cb:7c:66 type veth peer name s1-eth3 address a2:d1:f3:44:df:81 netns 42447',)
+
+added intf client2-eth0 (0) to node client2
+moving client2-eth0 into namespace for client2 
+*** client2 : ('ifconfig', 'client2-eth0', 'up')
+
+added intf s1-eth3 (3) to node s1
+*** s1 : ('ifconfig', 's1-eth3', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client3'] 42482*** client3 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client3 : ('ip link add name client3-eth0 address 7a:14:46:c1:71:00 type veth peer name s1-eth4 address 92:24:e5:ff:0f:08 netns 42447',)
+
+added intf client3-eth0 (0) to node client3
+moving client3-eth0 into namespace for client3 
+*** client3 : ('ifconfig', 'client3-eth0', 'up')
+
+added intf s1-eth4 (4) to node s1
+*** s1 : ('ifconfig', 's1-eth4', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client4'] 42488*** client4 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client4 : ('ip link add name client4-eth0 address b2:d3:f2:fe:74:4b type veth peer name s1-eth5 address 1e:77:78:93:64:fc netns 42447',)
+
+added intf client4-eth0 (0) to node client4
+moving client4-eth0 into namespace for client4 
+*** client4 : ('ifconfig', 'client4-eth0', 'up')
+
+added intf s1-eth5 (5) to node s1
+*** s1 : ('ifconfig', 's1-eth5', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client5'] 42494*** client5 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client5 : ('ip link add name client5-eth0 address a2:6b:bc:de:06:69 type veth peer name s1-eth6 address 0a:67:19:68:52:28 netns 42447',)
+
+added intf client5-eth0 (0) to node client5
+moving client5-eth0 into namespace for client5 
+*** client5 : ('ifconfig', 'client5-eth0', 'up')
+
+added intf s1-eth6 (6) to node s1
+*** s1 : ('ifconfig', 's1-eth6', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client6'] 42500*** client6 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client6 : ('ip link add name client6-eth0 address 62:05:9c:3f:d8:03 type veth peer name s1-eth7 address 5a:82:63:7d:bf:55 netns 42447',)
+
+added intf client6-eth0 (0) to node client6
+moving client6-eth0 into namespace for client6 
+*** client6 : ('ifconfig', 'client6-eth0', 'up')
+
+added intf s1-eth7 (7) to node s1
+*** s1 : ('ifconfig', 's1-eth7', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client7'] 42506*** client7 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client7 : ('ip link add name client7-eth0 address da:e2:fd:9a:80:c2 type veth peer name s1-eth8 address 36:a1:28:03:8b:94 netns 42447',)
+
+added intf client7-eth0 (0) to node client7
+moving client7-eth0 into namespace for client7 
+*** client7 : ('ifconfig', 'client7-eth0', 'up')
+
+added intf s1-eth8 (8) to node s1
+*** s1 : ('ifconfig', 's1-eth8', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client8'] 42512*** client8 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client8 : ('ip link add name client8-eth0 address d6:fe:bb:41:3c:cf type veth peer name s1-eth9 address b2:a7:08:30:fc:5d netns 42447',)
+
+added intf client8-eth0 (0) to node client8
+moving client8-eth0 into namespace for client8 
+*** client8 : ('ifconfig', 'client8-eth0', 'up')
+
+added intf s1-eth9 (9) to node s1
+*** s1 : ('ifconfig', 's1-eth9', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client9'] 42518*** client9 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client9 : ('ip link add name client9-eth0 address 26:24:c9:94:7e:d2 type veth peer name s1-eth10 address 3e:f7:31:1b:00:cc netns 42447',)
+
+added intf client9-eth0 (0) to node client9
+moving client9-eth0 into namespace for client9 
+*** client9 : ('ifconfig', 'client9-eth0', 'up')
+
+added intf s1-eth10 (10) to node s1
+*** s1 : ('ifconfig', 's1-eth10', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client10'] 42524*** client10 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client10 : ('ip link add name client10-eth0 address de:39:1d:ea:8c:20 type veth peer name s1-eth11 address b2:4c:ab:47:34:ba netns 42447',)
+
+added intf client10-eth0 (0) to node client10
+moving client10-eth0 into namespace for client10 
+*** client10 : ('ifconfig', 'client10-eth0', 'up')
+
+added intf s1-eth11 (11) to node s1
+*** s1 : ('ifconfig', 's1-eth11', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client11'] 42530*** client11 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client11 : ('ip link add name client11-eth0 address 52:9a:2f:cd:b3:e3 type veth peer name s1-eth12 address fe:e1:4b:3b:1c:ab netns 42447',)
+
+added intf client11-eth0 (0) to node client11
+moving client11-eth0 into namespace for client11 
+*** client11 : ('ifconfig', 'client11-eth0', 'up')
+
+added intf s1-eth12 (12) to node s1
+*** s1 : ('ifconfig', 's1-eth12', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client12'] 42536*** client12 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client12 : ('ip link add name client12-eth0 address 76:24:a8:07:04:86 type veth peer name s1-eth13 address ae:4b:6f:a4:20:4d netns 42447',)
+
+added intf client12-eth0 (0) to node client12
+moving client12-eth0 into namespace for client12 
+*** client12 : ('ifconfig', 'client12-eth0', 'up')
+
+added intf s1-eth13 (13) to node s1
+*** s1 : ('ifconfig', 's1-eth13', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client13'] 42542*** client13 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client13 : ('ip link add name client13-eth0 address 22:2e:2e:8d:c4:8f type veth peer name s1-eth14 address 52:c0:82:e2:db:9d netns 42447',)
+
+added intf client13-eth0 (0) to node client13
+moving client13-eth0 into namespace for client13 
+*** client13 : ('ifconfig', 'client13-eth0', 'up')
+
+added intf s1-eth14 (14) to node s1
+*** s1 : ('ifconfig', 's1-eth14', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client14'] 42548*** client14 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client14 : ('ip link add name client14-eth0 address c6:bd:a0:a4:93:1a type veth peer name s1-eth15 address 4e:bc:b7:be:e1:ff netns 42447',)
+
+added intf client14-eth0 (0) to node client14
+moving client14-eth0 into namespace for client14 
+*** client14 : ('ifconfig', 'client14-eth0', 'up')
+
+added intf s1-eth15 (15) to node s1
+*** s1 : ('ifconfig', 's1-eth15', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client15'] 42554*** client15 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client15 : ('ip link add name client15-eth0 address 66:f7:a8:fc:69:1d type veth peer name s1-eth16 address 0a:59:25:76:12:d5 netns 42447',)
+
+added intf client15-eth0 (0) to node client15
+moving client15-eth0 into namespace for client15 
+*** client15 : ('ifconfig', 'client15-eth0', 'up')
+
+added intf s1-eth16 (16) to node s1
+*** s1 : ('ifconfig', 's1-eth16', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client16'] 42563*** client16 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client16 : ('ip link add name client16-eth0 address 5e:55:6c:4a:cc:15 type veth peer name s1-eth17 address ca:5f:ef:94:db:56 netns 42447',)
+
+added intf client16-eth0 (0) to node client16
+moving client16-eth0 into namespace for client16 
+*** client16 : ('ifconfig', 'client16-eth0', 'up')
+
+added intf s1-eth17 (17) to node s1
+*** s1 : ('ifconfig', 's1-eth17', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client17'] 42569*** client17 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client17 : ('ip link add name client17-eth0 address 12:8a:c7:5b:ab:02 type veth peer name s1-eth18 address a2:b1:0c:b1:7b:db netns 42447',)
+
+added intf client17-eth0 (0) to node client17
+moving client17-eth0 into namespace for client17 
+*** client17 : ('ifconfig', 'client17-eth0', 'up')
+
+added intf s1-eth18 (18) to node s1
+*** s1 : ('ifconfig', 's1-eth18', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client18'] 42578*** client18 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client18 : ('ip link add name client18-eth0 address 12:72:f8:7a:4e:c9 type veth peer name s1-eth19 address e2:18:fa:16:9e:ab netns 42447',)
+
+added intf client18-eth0 (0) to node client18
+moving client18-eth0 into namespace for client18 
+*** client18 : ('ifconfig', 'client18-eth0', 'up')
+
+added intf s1-eth19 (19) to node s1
+*** s1 : ('ifconfig', 's1-eth19', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client19'] 42584*** client19 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client19 : ('ip link add name client19-eth0 address 26:be:44:71:c6:30 type veth peer name s1-eth20 address 56:44:cb:9b:18:4c netns 42447',)
+
+added intf client19-eth0 (0) to node client19
+moving client19-eth0 into namespace for client19 
+*** client19 : ('ifconfig', 'client19-eth0', 'up')
+
+added intf s1-eth20 (20) to node s1
+*** s1 : ('ifconfig', 's1-eth20', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client20'] 42590*** client20 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client20 : ('ip link add name client20-eth0 address 6e:07:20:0d:05:4a type veth peer name s1-eth21 address 76:1b:c3:8d:c3:80 netns 42447',)
+
+added intf client20-eth0 (0) to node client20
+moving client20-eth0 into namespace for client20 
+*** client20 : ('ifconfig', 'client20-eth0', 'up')
+
+added intf s1-eth21 (21) to node s1
+*** s1 : ('ifconfig', 's1-eth21', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client21'] 42596*** client21 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client21 : ('ip link add name client21-eth0 address 26:56:0b:c9:c8:47 type veth peer name s1-eth22 address b6:e9:16:0d:b2:02 netns 42447',)
+
+added intf client21-eth0 (0) to node client21
+moving client21-eth0 into namespace for client21 
+*** client21 : ('ifconfig', 'client21-eth0', 'up')
+
+added intf s1-eth22 (22) to node s1
+*** s1 : ('ifconfig', 's1-eth22', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client22'] 42602*** client22 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client22 : ('ip link add name client22-eth0 address ea:e8:ac:5e:4b:5f type veth peer name s1-eth23 address 4e:c9:63:a1:ab:93 netns 42447',)
+
+added intf client22-eth0 (0) to node client22
+moving client22-eth0 into namespace for client22 
+*** client22 : ('ifconfig', 'client22-eth0', 'up')
+
+added intf s1-eth23 (23) to node s1
+*** s1 : ('ifconfig', 's1-eth23', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client23'] 42608*** client23 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client23 : ('ip link add name client23-eth0 address d6:0b:13:16:0e:39 type veth peer name s1-eth24 address 62:a3:ca:5f:13:33 netns 42447',)
+
+added intf client23-eth0 (0) to node client23
+moving client23-eth0 into namespace for client23 
+*** client23 : ('ifconfig', 'client23-eth0', 'up')
+
+added intf s1-eth24 (24) to node s1
+*** s1 : ('ifconfig', 's1-eth24', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client24'] 42614*** client24 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client24 : ('ip link add name client24-eth0 address 0a:da:0b:03:ac:4b type veth peer name s1-eth25 address ba:88:e0:6b:5d:ba netns 42447',)
+
+added intf client24-eth0 (0) to node client24
+moving client24-eth0 into namespace for client24 
+*** client24 : ('ifconfig', 'client24-eth0', 'up')
+
+added intf s1-eth25 (25) to node s1
+*** s1 : ('ifconfig', 's1-eth25', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client25'] 42620*** client25 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client25 : ('ip link add name client25-eth0 address ae:e5:c5:ab:1b:f6 type veth peer name s1-eth26 address 5e:bb:e9:00:d4:ba netns 42447',)
+
+added intf client25-eth0 (0) to node client25
+moving client25-eth0 into namespace for client25 
+*** client25 : ('ifconfig', 'client25-eth0', 'up')
+
+added intf s1-eth26 (26) to node s1
+*** s1 : ('ifconfig', 's1-eth26', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client26'] 42626*** client26 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client26 : ('ip link add name client26-eth0 address 32:78:18:7b:e1:9e type veth peer name s1-eth27 address 4e:c7:62:e9:a8:3d netns 42447',)
+
+added intf client26-eth0 (0) to node client26
+moving client26-eth0 into namespace for client26 
+*** client26 : ('ifconfig', 'client26-eth0', 'up')
+
+added intf s1-eth27 (27) to node s1
+*** s1 : ('ifconfig', 's1-eth27', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client27'] 42632*** client27 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client27 : ('ip link add name client27-eth0 address 12:c4:7b:04:43:81 type veth peer name s1-eth28 address 22:5c:fa:50:ea:14 netns 42447',)
+
+added intf client27-eth0 (0) to node client27
+moving client27-eth0 into namespace for client27 
+*** client27 : ('ifconfig', 'client27-eth0', 'up')
+
+added intf s1-eth28 (28) to node s1
+*** s1 : ('ifconfig', 's1-eth28', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client28'] 42638*** client28 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client28 : ('ip link add name client28-eth0 address 66:66:6e:20:d5:71 type veth peer name s1-eth29 address 1a:d7:27:df:1b:10 netns 42447',)
+
+added intf client28-eth0 (0) to node client28
+moving client28-eth0 into namespace for client28 
+*** client28 : ('ifconfig', 'client28-eth0', 'up')
+
+added intf s1-eth29 (29) to node s1
+*** s1 : ('ifconfig', 's1-eth29', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client29'] 42644*** client29 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client29 : ('ip link add name client29-eth0 address 1e:67:2e:51:8f:a7 type veth peer name s1-eth30 address 0a:42:1b:5c:99:42 netns 42447',)
+
+added intf client29-eth0 (0) to node client29
+moving client29-eth0 into namespace for client29 
+*** client29 : ('ifconfig', 'client29-eth0', 'up')
+
+added intf s1-eth30 (30) to node s1
+*** s1 : ('ifconfig', 's1-eth30', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client30'] 42650*** client30 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client30 : ('ip link add name client30-eth0 address fa:f5:61:78:0b:b8 type veth peer name s1-eth31 address 5a:83:70:42:54:fb netns 42447',)
+
+added intf client30-eth0 (0) to node client30
+moving client30-eth0 into namespace for client30 
+*** client30 : ('ifconfig', 'client30-eth0', 'up')
+
+added intf s1-eth31 (31) to node s1
+*** s1 : ('ifconfig', 's1-eth31', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client31'] 42656*** client31 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client31 : ('ip link add name client31-eth0 address 7e:6c:fb:8c:86:ea type veth peer name s1-eth32 address e6:08:95:bc:e9:22 netns 42447',)
+
+added intf client31-eth0 (0) to node client31
+moving client31-eth0 into namespace for client31 
+*** client31 : ('ifconfig', 'client31-eth0', 'up')
+
+added intf s1-eth32 (32) to node s1
+*** s1 : ('ifconfig', 's1-eth32', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client32'] 42662*** client32 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client32 : ('ip link add name client32-eth0 address 3e:2e:1d:99:5e:c2 type veth peer name s1-eth33 address 02:b0:60:9e:69:0c netns 42447',)
+
+added intf client32-eth0 (0) to node client32
+moving client32-eth0 into namespace for client32 
+*** client32 : ('ifconfig', 'client32-eth0', 'up')
+
+added intf s1-eth33 (33) to node s1
+*** s1 : ('ifconfig', 's1-eth33', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client33'] 42668*** client33 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client33 : ('ip link add name client33-eth0 address be:db:08:90:38:8d type veth peer name s1-eth34 address 3e:6f:5f:c1:81:f0 netns 42447',)
+
+added intf client33-eth0 (0) to node client33
+moving client33-eth0 into namespace for client33 
+*** client33 : ('ifconfig', 'client33-eth0', 'up')
+
+added intf s1-eth34 (34) to node s1
+*** s1 : ('ifconfig', 's1-eth34', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client34'] 42674*** client34 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client34 : ('ip link add name client34-eth0 address fe:fa:a3:1c:79:b1 type veth peer name s1-eth35 address 36:b4:ed:31:f8:56 netns 42447',)
+
+added intf client34-eth0 (0) to node client34
+moving client34-eth0 into namespace for client34 
+*** client34 : ('ifconfig', 'client34-eth0', 'up')
+
+added intf s1-eth35 (35) to node s1
+*** s1 : ('ifconfig', 's1-eth35', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client35'] 42680*** client35 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client35 : ('ip link add name client35-eth0 address b6:7d:fe:34:ee:73 type veth peer name s1-eth36 address a2:98:d0:dc:3d:87 netns 42447',)
+
+added intf client35-eth0 (0) to node client35
+moving client35-eth0 into namespace for client35 
+*** client35 : ('ifconfig', 'client35-eth0', 'up')
+
+added intf s1-eth36 (36) to node s1
+*** s1 : ('ifconfig', 's1-eth36', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client36'] 42686*** client36 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client36 : ('ip link add name client36-eth0 address 7e:bd:e8:ad:a3:a3 type veth peer name s1-eth37 address ea:b7:da:b6:33:4e netns 42447',)
+
+added intf client36-eth0 (0) to node client36
+moving client36-eth0 into namespace for client36 
+*** client36 : ('ifconfig', 'client36-eth0', 'up')
+
+added intf s1-eth37 (37) to node s1
+*** s1 : ('ifconfig', 's1-eth37', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client37'] 42692*** client37 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client37 : ('ip link add name client37-eth0 address 1a:42:0c:5d:c5:f7 type veth peer name s1-eth38 address f6:76:67:e8:12:20 netns 42447',)
+
+added intf client37-eth0 (0) to node client37
+moving client37-eth0 into namespace for client37 
+*** client37 : ('ifconfig', 'client37-eth0', 'up')
+
+added intf s1-eth38 (38) to node s1
+*** s1 : ('ifconfig', 's1-eth38', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client38'] 42698*** client38 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client38 : ('ip link add name client38-eth0 address aa:1e:46:23:37:d9 type veth peer name s1-eth39 address 82:17:1b:6c:ac:f1 netns 42447',)
+
+added intf client38-eth0 (0) to node client38
+moving client38-eth0 into namespace for client38 
+*** client38 : ('ifconfig', 'client38-eth0', 'up')
+
+added intf s1-eth39 (39) to node s1
+*** s1 : ('ifconfig', 's1-eth39', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client39'] 42704*** client39 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client39 : ('ip link add name client39-eth0 address 36:8c:1f:b9:d7:31 type veth peer name s1-eth40 address 46:bb:60:1d:ba:83 netns 42447',)
+
+added intf client39-eth0 (0) to node client39
+moving client39-eth0 into namespace for client39 
+*** client39 : ('ifconfig', 'client39-eth0', 'up')
+
+added intf s1-eth40 (40) to node s1
+*** s1 : ('ifconfig', 's1-eth40', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client40'] 42710*** client40 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client40 : ('ip link add name client40-eth0 address 46:62:11:61:72:28 type veth peer name s1-eth41 address ce:17:08:d4:d1:94 netns 42447',)
+
+added intf client40-eth0 (0) to node client40
+moving client40-eth0 into namespace for client40 
+*** client40 : ('ifconfig', 'client40-eth0', 'up')
+
+added intf s1-eth41 (41) to node s1
+*** s1 : ('ifconfig', 's1-eth41', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client41'] 42716*** client41 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client41 : ('ip link add name client41-eth0 address d2:f8:02:07:ed:d0 type veth peer name s1-eth42 address e2:5b:bf:ca:ed:a7 netns 42447',)
+
+added intf client41-eth0 (0) to node client41
+moving client41-eth0 into namespace for client41 
+*** client41 : ('ifconfig', 'client41-eth0', 'up')
+
+added intf s1-eth42 (42) to node s1
+*** s1 : ('ifconfig', 's1-eth42', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client42'] 42722*** client42 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client42 : ('ip link add name client42-eth0 address 72:f8:e0:fb:7d:24 type veth peer name s1-eth43 address ca:83:c3:2b:e1:fa netns 42447',)
+
+added intf client42-eth0 (0) to node client42
+moving client42-eth0 into namespace for client42 
+*** client42 : ('ifconfig', 'client42-eth0', 'up')
+
+added intf s1-eth43 (43) to node s1
+*** s1 : ('ifconfig', 's1-eth43', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client43'] 42728*** client43 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client43 : ('ip link add name client43-eth0 address be:7b:54:99:8a:18 type veth peer name s1-eth44 address 7a:39:87:91:c4:3b netns 42447',)
+
+added intf client43-eth0 (0) to node client43
+moving client43-eth0 into namespace for client43 
+*** client43 : ('ifconfig', 'client43-eth0', 'up')
+
+added intf s1-eth44 (44) to node s1
+*** s1 : ('ifconfig', 's1-eth44', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client44'] 42734*** client44 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client44 : ('ip link add name client44-eth0 address 6a:12:30:f2:94:6c type veth peer name s1-eth45 address 06:b3:a9:ed:b9:e0 netns 42447',)
+
+added intf client44-eth0 (0) to node client44
+moving client44-eth0 into namespace for client44 
+*** client44 : ('ifconfig', 'client44-eth0', 'up')
+
+added intf s1-eth45 (45) to node s1
+*** s1 : ('ifconfig', 's1-eth45', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client45'] 42740*** client45 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client45 : ('ip link add name client45-eth0 address 0e:4e:1d:90:2a:e6 type veth peer name s1-eth46 address fe:52:0e:6e:66:3b netns 42447',)
+
+added intf client45-eth0 (0) to node client45
+moving client45-eth0 into namespace for client45 
+*** client45 : ('ifconfig', 'client45-eth0', 'up')
+
+added intf s1-eth46 (46) to node s1
+*** s1 : ('ifconfig', 's1-eth46', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client46'] 42746*** client46 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client46 : ('ip link add name client46-eth0 address d6:97:5f:be:c8:55 type veth peer name s1-eth47 address 4e:9e:d2:ee:5f:41 netns 42447',)
+
+added intf client46-eth0 (0) to node client46
+moving client46-eth0 into namespace for client46 
+*** client46 : ('ifconfig', 'client46-eth0', 'up')
+
+added intf s1-eth47 (47) to node s1
+*** s1 : ('ifconfig', 's1-eth47', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client47'] 42752*** client47 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client47 : ('ip link add name client47-eth0 address 1e:b7:d3:1b:6a:f5 type veth peer name s1-eth48 address 4e:b9:07:a0:39:d9 netns 42447',)
+
+added intf client47-eth0 (0) to node client47
+moving client47-eth0 into namespace for client47 
+*** client47 : ('ifconfig', 'client47-eth0', 'up')
+
+added intf s1-eth48 (48) to node s1
+*** s1 : ('ifconfig', 's1-eth48', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client48'] 42758*** client48 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client48 : ('ip link add name client48-eth0 address fe:c0:6d:01:cd:6f type veth peer name s1-eth49 address 9e:0a:81:3c:b9:38 netns 42447',)
+
+added intf client48-eth0 (0) to node client48
+moving client48-eth0 into namespace for client48 
+*** client48 : ('ifconfig', 'client48-eth0', 'up')
+
+added intf s1-eth49 (49) to node s1
+*** s1 : ('ifconfig', 's1-eth49', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client49'] 42764*** client49 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client49 : ('ip link add name client49-eth0 address 9a:7c:e1:54:b7:ef type veth peer name s1-eth50 address 4a:f1:b6:29:04:c8 netns 42447',)
+
+added intf client49-eth0 (0) to node client49
+moving client49-eth0 into namespace for client49 
+*** client49 : ('ifconfig', 'client49-eth0', 'up')
+
+added intf s1-eth50 (50) to node s1
+*** s1 : ('ifconfig', 's1-eth50', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client50'] 42770*** client50 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client50 : ('ip link add name client50-eth0 address 6e:bd:ff:75:19:02 type veth peer name s1-eth51 address 42:5e:5d:c9:63:82 netns 42447',)
+
+added intf client50-eth0 (0) to node client50
+moving client50-eth0 into namespace for client50 
+*** client50 : ('ifconfig', 'client50-eth0', 'up')
+
+added intf s1-eth51 (51) to node s1
+*** s1 : ('ifconfig', 's1-eth51', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client51'] 42776*** client51 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client51 : ('ip link add name client51-eth0 address 6e:82:fb:90:c5:74 type veth peer name s1-eth52 address 4a:cd:bb:0c:5b:5f netns 42447',)
+
+added intf client51-eth0 (0) to node client51
+moving client51-eth0 into namespace for client51 
+*** client51 : ('ifconfig', 'client51-eth0', 'up')
+
+added intf s1-eth52 (52) to node s1
+*** s1 : ('ifconfig', 's1-eth52', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client52'] 42782*** client52 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client52 : ('ip link add name client52-eth0 address f6:09:e7:c5:ce:4f type veth peer name s1-eth53 address c6:a3:91:3f:23:5c netns 42447',)
+
+added intf client52-eth0 (0) to node client52
+moving client52-eth0 into namespace for client52 
+*** client52 : ('ifconfig', 'client52-eth0', 'up')
+
+added intf s1-eth53 (53) to node s1
+*** s1 : ('ifconfig', 's1-eth53', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client53'] 42791*** client53 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client53 : ('ip link add name client53-eth0 address da:43:5c:d7:7a:d0 type veth peer name s1-eth54 address 52:78:43:45:79:15 netns 42447',)
+
+added intf client53-eth0 (0) to node client53
+moving client53-eth0 into namespace for client53 
+*** client53 : ('ifconfig', 'client53-eth0', 'up')
+
+added intf s1-eth54 (54) to node s1
+*** s1 : ('ifconfig', 's1-eth54', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client54'] 42797*** client54 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client54 : ('ip link add name client54-eth0 address be:0e:9a:d9:07:4d type veth peer name s1-eth55 address d6:3a:f2:90:29:03 netns 42447',)
+
+added intf client54-eth0 (0) to node client54
+moving client54-eth0 into namespace for client54 
+*** client54 : ('ifconfig', 'client54-eth0', 'up')
+
+added intf s1-eth55 (55) to node s1
+*** s1 : ('ifconfig', 's1-eth55', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client55'] 42803*** client55 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client55 : ('ip link add name client55-eth0 address ce:f3:98:05:83:46 type veth peer name s1-eth56 address a6:12:d8:9c:f6:d3 netns 42447',)
+
+added intf client55-eth0 (0) to node client55
+moving client55-eth0 into namespace for client55 
+*** client55 : ('ifconfig', 'client55-eth0', 'up')
+
+added intf s1-eth56 (56) to node s1
+*** s1 : ('ifconfig', 's1-eth56', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client56'] 42809*** client56 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client56 : ('ip link add name client56-eth0 address 22:e3:04:3f:9a:aa type veth peer name s1-eth57 address 6e:c9:64:2f:f4:93 netns 42447',)
+
+added intf client56-eth0 (0) to node client56
+moving client56-eth0 into namespace for client56 
+*** client56 : ('ifconfig', 'client56-eth0', 'up')
+
+added intf s1-eth57 (57) to node s1
+*** s1 : ('ifconfig', 's1-eth57', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client57'] 42818*** client57 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client57 : ('ip link add name client57-eth0 address 56:41:e6:cc:28:25 type veth peer name s1-eth58 address 6e:0f:2c:b9:99:d9 netns 42447',)
+
+added intf client57-eth0 (0) to node client57
+moving client57-eth0 into namespace for client57 
+*** client57 : ('ifconfig', 'client57-eth0', 'up')
+
+added intf s1-eth58 (58) to node s1
+*** s1 : ('ifconfig', 's1-eth58', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client58'] 42824*** client58 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client58 : ('ip link add name client58-eth0 address e2:63:85:ae:a0:ea type veth peer name s1-eth59 address 32:23:6a:0e:47:6f netns 42447',)
+
+added intf client58-eth0 (0) to node client58
+moving client58-eth0 into namespace for client58 
+*** client58 : ('ifconfig', 'client58-eth0', 'up')
+
+added intf s1-eth59 (59) to node s1
+*** s1 : ('ifconfig', 's1-eth59', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client59'] 42830*** client59 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client59 : ('ip link add name client59-eth0 address 5e:5c:b4:3f:1d:ac type veth peer name s1-eth60 address ba:7c:f8:6c:cd:23 netns 42447',)
+
+added intf client59-eth0 (0) to node client59
+moving client59-eth0 into namespace for client59 
+*** client59 : ('ifconfig', 'client59-eth0', 'up')
+
+added intf s1-eth60 (60) to node s1
+*** s1 : ('ifconfig', 's1-eth60', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client60'] 42836*** client60 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client60 : ('ip link add name client60-eth0 address f2:8c:f3:12:0e:dc type veth peer name s1-eth61 address 26:d8:90:dc:dd:fb netns 42447',)
+
+added intf client60-eth0 (0) to node client60
+moving client60-eth0 into namespace for client60 
+*** client60 : ('ifconfig', 'client60-eth0', 'up')
+
+added intf s1-eth61 (61) to node s1
+*** s1 : ('ifconfig', 's1-eth61', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client61'] 42842*** client61 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client61 : ('ip link add name client61-eth0 address d2:44:8a:0c:d8:4e type veth peer name s1-eth62 address b6:c5:78:04:2c:ff netns 42447',)
+
+added intf client61-eth0 (0) to node client61
+moving client61-eth0 into namespace for client61 
+*** client61 : ('ifconfig', 'client61-eth0', 'up')
+
+added intf s1-eth62 (62) to node s1
+*** s1 : ('ifconfig', 's1-eth62', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client62'] 42848*** client62 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client62 : ('ip link add name client62-eth0 address 32:2e:99:e5:22:f2 type veth peer name s1-eth63 address 0e:da:23:8f:cc:cf netns 42447',)
+
+added intf client62-eth0 (0) to node client62
+moving client62-eth0 into namespace for client62 
+*** client62 : ('ifconfig', 'client62-eth0', 'up')
+
+added intf s1-eth63 (63) to node s1
+*** s1 : ('ifconfig', 's1-eth63', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client63'] 42854*** client63 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client63 : ('ip link add name client63-eth0 address 6a:96:ee:70:ba:75 type veth peer name s1-eth64 address 9a:30:b1:28:51:36 netns 42447',)
+
+added intf client63-eth0 (0) to node client63
+moving client63-eth0 into namespace for client63 
+*** client63 : ('ifconfig', 'client63-eth0', 'up')
+
+added intf s1-eth64 (64) to node s1
+*** s1 : ('ifconfig', 's1-eth64', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client64'] 42860*** client64 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client64 : ('ip link add name client64-eth0 address 76:e3:6b:fe:78:a1 type veth peer name s1-eth65 address 82:09:ab:6f:06:23 netns 42447',)
+
+added intf client64-eth0 (0) to node client64
+moving client64-eth0 into namespace for client64 
+*** client64 : ('ifconfig', 'client64-eth0', 'up')
+
+added intf s1-eth65 (65) to node s1
+*** s1 : ('ifconfig', 's1-eth65', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client65'] 42866*** client65 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client65 : ('ip link add name client65-eth0 address ba:80:3b:e0:19:e8 type veth peer name s1-eth66 address 96:31:8e:af:11:a6 netns 42447',)
+
+added intf client65-eth0 (0) to node client65
+moving client65-eth0 into namespace for client65 
+*** client65 : ('ifconfig', 'client65-eth0', 'up')
+
+added intf s1-eth66 (66) to node s1
+*** s1 : ('ifconfig', 's1-eth66', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client66'] 42872*** client66 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client66 : ('ip link add name client66-eth0 address ae:8a:aa:39:90:5e type veth peer name s1-eth67 address 36:54:a4:6a:25:87 netns 42447',)
+
+added intf client66-eth0 (0) to node client66
+moving client66-eth0 into namespace for client66 
+*** client66 : ('ifconfig', 'client66-eth0', 'up')
+
+added intf s1-eth67 (67) to node s1
+*** s1 : ('ifconfig', 's1-eth67', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client67'] 42878*** client67 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client67 : ('ip link add name client67-eth0 address 32:af:3b:d8:0d:0f type veth peer name s1-eth68 address da:aa:ac:32:ce:de netns 42447',)
+
+added intf client67-eth0 (0) to node client67
+moving client67-eth0 into namespace for client67 
+*** client67 : ('ifconfig', 'client67-eth0', 'up')
+
+added intf s1-eth68 (68) to node s1
+*** s1 : ('ifconfig', 's1-eth68', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client68'] 42884*** client68 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client68 : ('ip link add name client68-eth0 address a2:d2:be:2c:37:70 type veth peer name s1-eth69 address 4e:b4:8f:da:f4:97 netns 42447',)
+
+added intf client68-eth0 (0) to node client68
+moving client68-eth0 into namespace for client68 
+*** client68 : ('ifconfig', 'client68-eth0', 'up')
+
+added intf s1-eth69 (69) to node s1
+*** s1 : ('ifconfig', 's1-eth69', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client69'] 42890*** client69 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client69 : ('ip link add name client69-eth0 address 36:e2:63:fb:f2:0b type veth peer name s1-eth70 address b6:51:e6:96:31:9f netns 42447',)
+
+added intf client69-eth0 (0) to node client69
+moving client69-eth0 into namespace for client69 
+*** client69 : ('ifconfig', 'client69-eth0', 'up')
+
+added intf s1-eth70 (70) to node s1
+*** s1 : ('ifconfig', 's1-eth70', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client70'] 42896*** client70 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client70 : ('ip link add name client70-eth0 address 52:96:95:ac:46:f5 type veth peer name s1-eth71 address 92:e1:8d:af:80:22 netns 42447',)
+
+added intf client70-eth0 (0) to node client70
+moving client70-eth0 into namespace for client70 
+*** client70 : ('ifconfig', 'client70-eth0', 'up')
+
+added intf s1-eth71 (71) to node s1
+*** s1 : ('ifconfig', 's1-eth71', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client71'] 42902*** client71 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client71 : ('ip link add name client71-eth0 address 82:cc:d1:75:2f:b2 type veth peer name s1-eth72 address de:32:b2:a9:61:9f netns 42447',)
+
+added intf client71-eth0 (0) to node client71
+moving client71-eth0 into namespace for client71 
+*** client71 : ('ifconfig', 'client71-eth0', 'up')
+
+added intf s1-eth72 (72) to node s1
+*** s1 : ('ifconfig', 's1-eth72', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client72'] 42908*** client72 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client72 : ('ip link add name client72-eth0 address 66:c1:84:d6:63:06 type veth peer name s1-eth73 address 1e:33:86:cc:5b:ad netns 42447',)
+
+added intf client72-eth0 (0) to node client72
+moving client72-eth0 into namespace for client72 
+*** client72 : ('ifconfig', 'client72-eth0', 'up')
+
+added intf s1-eth73 (73) to node s1
+*** s1 : ('ifconfig', 's1-eth73', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client73'] 42914*** client73 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client73 : ('ip link add name client73-eth0 address f6:32:98:cb:b3:06 type veth peer name s1-eth74 address 6a:76:b6:17:34:da netns 42447',)
+
+added intf client73-eth0 (0) to node client73
+moving client73-eth0 into namespace for client73 
+*** client73 : ('ifconfig', 'client73-eth0', 'up')
+
+added intf s1-eth74 (74) to node s1
+*** s1 : ('ifconfig', 's1-eth74', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client74'] 42921*** client74 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client74 : ('ip link add name client74-eth0 address d6:5e:52:ca:8f:e2 type veth peer name s1-eth75 address 7a:4a:4d:27:64:93 netns 42447',)
+
+added intf client74-eth0 (0) to node client74
+moving client74-eth0 into namespace for client74 
+*** client74 : ('ifconfig', 'client74-eth0', 'up')
+
+added intf s1-eth75 (75) to node s1
+*** s1 : ('ifconfig', 's1-eth75', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client75'] 42927*** client75 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client75 : ('ip link add name client75-eth0 address ce:02:99:e0:60:27 type veth peer name s1-eth76 address 8a:e9:6f:c2:e0:f7 netns 42447',)
+
+added intf client75-eth0 (0) to node client75
+moving client75-eth0 into namespace for client75 
+*** client75 : ('ifconfig', 'client75-eth0', 'up')
+
+added intf s1-eth76 (76) to node s1
+*** s1 : ('ifconfig', 's1-eth76', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client76'] 42933*** client76 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client76 : ('ip link add name client76-eth0 address ae:00:66:47:35:e9 type veth peer name s1-eth77 address be:b0:f4:d8:bd:68 netns 42447',)
+
+added intf client76-eth0 (0) to node client76
+moving client76-eth0 into namespace for client76 
+*** client76 : ('ifconfig', 'client76-eth0', 'up')
+
+added intf s1-eth77 (77) to node s1
+*** s1 : ('ifconfig', 's1-eth77', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client77'] 42939*** client77 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client77 : ('ip link add name client77-eth0 address 56:e7:de:68:ed:7e type veth peer name s1-eth78 address 16:e5:69:a4:ab:7b netns 42447',)
+
+added intf client77-eth0 (0) to node client77
+moving client77-eth0 into namespace for client77 
+*** client77 : ('ifconfig', 'client77-eth0', 'up')
+
+added intf s1-eth78 (78) to node s1
+*** s1 : ('ifconfig', 's1-eth78', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client78'] 42945*** client78 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client78 : ('ip link add name client78-eth0 address f6:5e:c2:f5:01:7d type veth peer name s1-eth79 address 7a:86:8a:5b:8a:2c netns 42447',)
+
+added intf client78-eth0 (0) to node client78
+moving client78-eth0 into namespace for client78 
+*** client78 : ('ifconfig', 'client78-eth0', 'up')
+
+added intf s1-eth79 (79) to node s1
+*** s1 : ('ifconfig', 's1-eth79', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client79'] 42951*** client79 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client79 : ('ip link add name client79-eth0 address d2:1f:f2:dc:ea:6c type veth peer name s1-eth80 address aa:be:8a:c5:73:17 netns 42447',)
+
+added intf client79-eth0 (0) to node client79
+moving client79-eth0 into namespace for client79 
+*** client79 : ('ifconfig', 'client79-eth0', 'up')
+
+added intf s1-eth80 (80) to node s1
+*** s1 : ('ifconfig', 's1-eth80', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client80'] 42957*** client80 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client80 : ('ip link add name client80-eth0 address e2:21:8d:56:b5:2f type veth peer name s1-eth81 address da:c5:81:3a:95:01 netns 42447',)
+
+added intf client80-eth0 (0) to node client80
+moving client80-eth0 into namespace for client80 
+*** client80 : ('ifconfig', 'client80-eth0', 'up')
+
+added intf s1-eth81 (81) to node s1
+*** s1 : ('ifconfig', 's1-eth81', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client81'] 42963*** client81 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client81 : ('ip link add name client81-eth0 address 92:8c:9c:ef:c7:b4 type veth peer name s1-eth82 address 0a:63:95:08:20:fb netns 42447',)
+
+added intf client81-eth0 (0) to node client81
+moving client81-eth0 into namespace for client81 
+*** client81 : ('ifconfig', 'client81-eth0', 'up')
+
+added intf s1-eth82 (82) to node s1
+*** s1 : ('ifconfig', 's1-eth82', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client82'] 42969*** client82 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client82 : ('ip link add name client82-eth0 address 3a:81:ca:cf:7c:88 type veth peer name s1-eth83 address c6:6b:0a:28:da:85 netns 42447',)
+
+added intf client82-eth0 (0) to node client82
+moving client82-eth0 into namespace for client82 
+*** client82 : ('ifconfig', 'client82-eth0', 'up')
+
+added intf s1-eth83 (83) to node s1
+*** s1 : ('ifconfig', 's1-eth83', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client83'] 42975*** client83 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client83 : ('ip link add name client83-eth0 address 0e:10:e6:88:1d:c8 type veth peer name s1-eth84 address 9e:db:81:4c:55:ba netns 42447',)
+
+added intf client83-eth0 (0) to node client83
+moving client83-eth0 into namespace for client83 
+*** client83 : ('ifconfig', 'client83-eth0', 'up')
+
+added intf s1-eth84 (84) to node s1
+*** s1 : ('ifconfig', 's1-eth84', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client84'] 42981*** client84 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client84 : ('ip link add name client84-eth0 address 0a:df:f8:23:b2:bc type veth peer name s1-eth85 address 6a:19:bc:48:39:ca netns 42447',)
+
+added intf client84-eth0 (0) to node client84
+moving client84-eth0 into namespace for client84 
+*** client84 : ('ifconfig', 'client84-eth0', 'up')
+
+added intf s1-eth85 (85) to node s1
+*** s1 : ('ifconfig', 's1-eth85', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client85'] 42990*** client85 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client85 : ('ip link add name client85-eth0 address 26:de:08:90:bb:6c type veth peer name s1-eth86 address 06:2d:11:68:7f:08 netns 42447',)
+
+added intf client85-eth0 (0) to node client85
+moving client85-eth0 into namespace for client85 
+*** client85 : ('ifconfig', 'client85-eth0', 'up')
+
+added intf s1-eth86 (86) to node s1
+*** s1 : ('ifconfig', 's1-eth86', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client86'] 42996*** client86 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client86 : ('ip link add name client86-eth0 address be:5b:26:98:17:16 type veth peer name s1-eth87 address a2:08:8f:ca:1e:8e netns 42447',)
+
+added intf client86-eth0 (0) to node client86
+moving client86-eth0 into namespace for client86 
+*** client86 : ('ifconfig', 'client86-eth0', 'up')
+
+added intf s1-eth87 (87) to node s1
+*** s1 : ('ifconfig', 's1-eth87', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client87'] 43002*** client87 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client87 : ('ip link add name client87-eth0 address 26:3e:92:e9:17:1b type veth peer name s1-eth88 address ea:c4:d6:43:59:05 netns 42447',)
+
+added intf client87-eth0 (0) to node client87
+moving client87-eth0 into namespace for client87 
+*** client87 : ('ifconfig', 'client87-eth0', 'up')
+
+added intf s1-eth88 (88) to node s1
+*** s1 : ('ifconfig', 's1-eth88', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client88'] 43008*** client88 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client88 : ('ip link add name client88-eth0 address 4a:4b:11:a8:68:3a type veth peer name s1-eth89 address 86:47:d8:c1:2d:e9 netns 42447',)
+
+added intf client88-eth0 (0) to node client88
+moving client88-eth0 into namespace for client88 
+*** client88 : ('ifconfig', 'client88-eth0', 'up')
+
+added intf s1-eth89 (89) to node s1
+*** s1 : ('ifconfig', 's1-eth89', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client89'] 43014*** client89 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client89 : ('ip link add name client89-eth0 address 2a:ed:13:85:b9:b8 type veth peer name s1-eth90 address 42:ce:06:c4:11:95 netns 42447',)
+
+added intf client89-eth0 (0) to node client89
+moving client89-eth0 into namespace for client89 
+*** client89 : ('ifconfig', 'client89-eth0', 'up')
+
+added intf s1-eth90 (90) to node s1
+*** s1 : ('ifconfig', 's1-eth90', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client90'] 43023*** client90 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client90 : ('ip link add name client90-eth0 address ce:67:ce:d9:83:fe type veth peer name s1-eth91 address 96:ee:06:df:fc:ea netns 42447',)
+
+added intf client90-eth0 (0) to node client90
+moving client90-eth0 into namespace for client90 
+*** client90 : ('ifconfig', 'client90-eth0', 'up')
+
+added intf s1-eth91 (91) to node s1
+*** s1 : ('ifconfig', 's1-eth91', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client91'] 43029*** client91 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client91 : ('ip link add name client91-eth0 address 8e:07:07:68:42:17 type veth peer name s1-eth92 address de:5f:f8:28:1e:64 netns 42447',)
+
+added intf client91-eth0 (0) to node client91
+moving client91-eth0 into namespace for client91 
+*** client91 : ('ifconfig', 'client91-eth0', 'up')
+
+added intf s1-eth92 (92) to node s1
+*** s1 : ('ifconfig', 's1-eth92', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client92'] 43035*** client92 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client92 : ('ip link add name client92-eth0 address da:5e:7d:a2:0b:1e type veth peer name s1-eth93 address 5a:6f:45:74:06:26 netns 42447',)
+
+added intf client92-eth0 (0) to node client92
+moving client92-eth0 into namespace for client92 
+*** client92 : ('ifconfig', 'client92-eth0', 'up')
+
+added intf s1-eth93 (93) to node s1
+*** s1 : ('ifconfig', 's1-eth93', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client93'] 43041*** client93 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client93 : ('ip link add name client93-eth0 address 46:3b:b0:b2:3a:28 type veth peer name s1-eth94 address 52:13:53:e8:46:72 netns 42447',)
+
+added intf client93-eth0 (0) to node client93
+moving client93-eth0 into namespace for client93 
+*** client93 : ('ifconfig', 'client93-eth0', 'up')
+
+added intf s1-eth94 (94) to node s1
+*** s1 : ('ifconfig', 's1-eth94', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client94'] 43047*** client94 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client94 : ('ip link add name client94-eth0 address fe:13:5b:87:7a:6c type veth peer name s1-eth95 address 52:95:93:1a:20:d9 netns 42447',)
+
+added intf client94-eth0 (0) to node client94
+moving client94-eth0 into namespace for client94 
+*** client94 : ('ifconfig', 'client94-eth0', 'up')
+
+added intf s1-eth95 (95) to node s1
+*** s1 : ('ifconfig', 's1-eth95', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client95'] 43053*** client95 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client95 : ('ip link add name client95-eth0 address 6e:3d:29:71:3c:bf type veth peer name s1-eth96 address 8a:9f:86:85:f3:36 netns 42447',)
+
+added intf client95-eth0 (0) to node client95
+moving client95-eth0 into namespace for client95 
+*** client95 : ('ifconfig', 'client95-eth0', 'up')
+
+added intf s1-eth96 (96) to node s1
+*** s1 : ('ifconfig', 's1-eth96', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client96'] 43059*** client96 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client96 : ('ip link add name client96-eth0 address aa:27:1b:19:83:9b type veth peer name s1-eth97 address 16:fa:e8:a2:dc:d1 netns 42447',)
+
+added intf client96-eth0 (0) to node client96
+moving client96-eth0 into namespace for client96 
+*** client96 : ('ifconfig', 'client96-eth0', 'up')
+
+added intf s1-eth97 (97) to node s1
+*** s1 : ('ifconfig', 's1-eth97', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client97'] 43065*** client97 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client97 : ('ip link add name client97-eth0 address ce:06:e5:91:8b:cc type veth peer name s1-eth98 address d2:81:6e:05:b4:bf netns 42447',)
+
+added intf client97-eth0 (0) to node client97
+moving client97-eth0 into namespace for client97 
+*** client97 : ('ifconfig', 'client97-eth0', 'up')
+
+added intf s1-eth98 (98) to node s1
+*** s1 : ('ifconfig', 's1-eth98', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client98'] 43071*** client98 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client98 : ('ip link add name client98-eth0 address 62:82:0a:3e:5f:a8 type veth peer name s1-eth99 address ae:3f:71:a4:b1:2c netns 42447',)
+
+added intf client98-eth0 (0) to node client98
+moving client98-eth0 into namespace for client98 
+*** client98 : ('ifconfig', 'client98-eth0', 'up')
+
+added intf s1-eth99 (99) to node s1
+*** s1 : ('ifconfig', 's1-eth99', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client99'] 43077*** client99 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client99 : ('ip link add name client99-eth0 address 6e:08:41:53:3c:7c type veth peer name s1-eth100 address fe:6c:4f:a6:13:3c netns 42447',)
+
+added intf client99-eth0 (0) to node client99
+moving client99-eth0 into namespace for client99 
+*** client99 : ('ifconfig', 'client99-eth0', 'up')
+
+added intf s1-eth100 (100) to node s1
+*** s1 : ('ifconfig', 's1-eth100', 'up')
+_popen ['mnexec', '-cdn', 'env', 'PS1=\x7f', 'bash', '--norc', '--noediting', '-is', 'mininet:client100'] 43083*** client100 : ('unset HISTFILE; stty -echo; set +m',)
+unset HISTFILE; stty -echo; set +m
+*** client100 : ('ip link add name client100-eth0 address 46:28:31:67:75:0e type veth peer name s1-eth101 address 9a:64:c5:cc:c1:7b netns 42447',)
+
+added intf client100-eth0 (0) to node client100
+moving client100-eth0 into namespace for client100 
+*** client100 : ('ifconfig', 'client100-eth0', 'up')
+
+added intf s1-eth101 (101) to node s1
+*** s1 : ('ifconfig', 's1-eth101', 'up')
+*** Configuring hosts
+server *** server : ('ifconfig', 'server-eth0', '10.0.0.1/24', 'up')
+*** server : ('ifconfig lo up',)
+client1 *** client1 : ('ifconfig', 'client1-eth0', '10.0.0.2/24', 'up')
+*** client1 : ('ifconfig lo up',)
+client2 *** client2 : ('ifconfig', 'client2-eth0', '10.0.0.3/24', 'up')
+*** client2 : ('ifconfig lo up',)
+client3 *** client3 : ('ifconfig', 'client3-eth0', '10.0.0.4/24', 'up')
+*** client3 : ('ifconfig lo up',)
+client4 *** client4 : ('ifconfig', 'client4-eth0', '10.0.0.5/24', 'up')
+*** client4 : ('ifconfig lo up',)
+client5 *** client5 : ('ifconfig', 'client5-eth0', '10.0.0.6/24', 'up')
+*** client5 : ('ifconfig lo up',)
+client6 *** client6 : ('ifconfig', 'client6-eth0', '10.0.0.7/24', 'up')
+*** client6 : ('ifconfig lo up',)
+client7 *** client7 : ('ifconfig', 'client7-eth0', '10.0.0.8/24', 'up')
+*** client7 : ('ifconfig lo up',)
+client8 *** client8 : ('ifconfig', 'client8-eth0', '10.0.0.9/24', 'up')
+*** client8 : ('ifconfig lo up',)
+client9 *** client9 : ('ifconfig', 'client9-eth0', '10.0.0.10/24', 'up')
+*** client9 : ('ifconfig lo up',)
+client10 *** client10 : ('ifconfig', 'client10-eth0', '10.0.0.11/24', 'up')
+*** client10 : ('ifconfig lo up',)
+client11 *** client11 : ('ifconfig', 'client11-eth0', '10.0.0.12/24', 'up')
+*** client11 : ('ifconfig lo up',)
+client12 *** client12 : ('ifconfig', 'client12-eth0', '10.0.0.13/24', 'up')
+*** client12 : ('ifconfig lo up',)
+client13 *** client13 : ('ifconfig', 'client13-eth0', '10.0.0.14/24', 'up')
+*** client13 : ('ifconfig lo up',)
+client14 *** client14 : ('ifconfig', 'client14-eth0', '10.0.0.15/24', 'up')
+*** client14 : ('ifconfig lo up',)
+client15 *** client15 : ('ifconfig', 'client15-eth0', '10.0.0.16/24', 'up')
+*** client15 : ('ifconfig lo up',)
+client16 *** client16 : ('ifconfig', 'client16-eth0', '10.0.0.17/24', 'up')
+*** client16 : ('ifconfig lo up',)
+client17 *** client17 : ('ifconfig', 'client17-eth0', '10.0.0.18/24', 'up')
+*** client17 : ('ifconfig lo up',)
+client18 *** client18 : ('ifconfig', 'client18-eth0', '10.0.0.19/24', 'up')
+*** client18 : ('ifconfig lo up',)
+client19 *** client19 : ('ifconfig', 'client19-eth0', '10.0.0.20/24', 'up')
+*** client19 : ('ifconfig lo up',)
+client20 *** client20 : ('ifconfig', 'client20-eth0', '10.0.0.21/24', 'up')
+*** client20 : ('ifconfig lo up',)
+client21 *** client21 : ('ifconfig', 'client21-eth0', '10.0.0.22/24', 'up')
+*** client21 : ('ifconfig lo up',)
+client22 *** client22 : ('ifconfig', 'client22-eth0', '10.0.0.23/24', 'up')
+*** client22 : ('ifconfig lo up',)
+client23 *** client23 : ('ifconfig', 'client23-eth0', '10.0.0.24/24', 'up')
+*** client23 : ('ifconfig lo up',)
+client24 *** client24 : ('ifconfig', 'client24-eth0', '10.0.0.25/24', 'up')
+*** client24 : ('ifconfig lo up',)
+client25 *** client25 : ('ifconfig', 'client25-eth0', '10.0.0.26/24', 'up')
+*** client25 : ('ifconfig lo up',)
+client26 *** client26 : ('ifconfig', 'client26-eth0', '10.0.0.27/24', 'up')
+*** client26 : ('ifconfig lo up',)
+client27 *** client27 : ('ifconfig', 'client27-eth0', '10.0.0.28/24', 'up')
+*** client27 : ('ifconfig lo up',)
+client28 *** client28 : ('ifconfig', 'client28-eth0', '10.0.0.29/24', 'up')
+*** client28 : ('ifconfig lo up',)
+client29 *** client29 : ('ifconfig', 'client29-eth0', '10.0.0.30/24', 'up')
+*** client29 : ('ifconfig lo up',)
+client30 *** client30 : ('ifconfig', 'client30-eth0', '10.0.0.31/24', 'up')
+*** client30 : ('ifconfig lo up',)
+client31 *** client31 : ('ifconfig', 'client31-eth0', '10.0.0.32/24', 'up')
+*** client31 : ('ifconfig lo up',)
+client32 *** client32 : ('ifconfig', 'client32-eth0', '10.0.0.33/24', 'up')
+*** client32 : ('ifconfig lo up',)
+client33 *** client33 : ('ifconfig', 'client33-eth0', '10.0.0.34/24', 'up')
+*** client33 : ('ifconfig lo up',)
+client34 *** client34 : ('ifconfig', 'client34-eth0', '10.0.0.35/24', 'up')
+*** client34 : ('ifconfig lo up',)
+client35 *** client35 : ('ifconfig', 'client35-eth0', '10.0.0.36/24', 'up')
+*** client35 : ('ifconfig lo up',)
+client36 *** client36 : ('ifconfig', 'client36-eth0', '10.0.0.37/24', 'up')
+*** client36 : ('ifconfig lo up',)
+client37 *** client37 : ('ifconfig', 'client37-eth0', '10.0.0.38/24', 'up')
+*** client37 : ('ifconfig lo up',)
+client38 *** client38 : ('ifconfig', 'client38-eth0', '10.0.0.39/24', 'up')
+*** client38 : ('ifconfig lo up',)
+client39 *** client39 : ('ifconfig', 'client39-eth0', '10.0.0.40/24', 'up')
+*** client39 : ('ifconfig lo up',)
+client40 *** client40 : ('ifconfig', 'client40-eth0', '10.0.0.41/24', 'up')
+*** client40 : ('ifconfig lo up',)
+client41 *** client41 : ('ifconfig', 'client41-eth0', '10.0.0.42/24', 'up')
+*** client41 : ('ifconfig lo up',)
+client42 *** client42 : ('ifconfig', 'client42-eth0', '10.0.0.43/24', 'up')
+*** client42 : ('ifconfig lo up',)
+client43 *** client43 : ('ifconfig', 'client43-eth0', '10.0.0.44/24', 'up')
+*** client43 : ('ifconfig lo up',)
+client44 *** client44 : ('ifconfig', 'client44-eth0', '10.0.0.45/24', 'up')
+*** client44 : ('ifconfig lo up',)
+client45 *** client45 : ('ifconfig', 'client45-eth0', '10.0.0.46/24', 'up')
+*** client45 : ('ifconfig lo up',)
+client46 *** client46 : ('ifconfig', 'client46-eth0', '10.0.0.47/24', 'up')
+*** client46 : ('ifconfig lo up',)
+client47 *** client47 : ('ifconfig', 'client47-eth0', '10.0.0.48/24', 'up')
+*** client47 : ('ifconfig lo up',)
+client48 *** client48 : ('ifconfig', 'client48-eth0', '10.0.0.49/24', 'up')
+*** client48 : ('ifconfig lo up',)
+client49 *** client49 : ('ifconfig', 'client49-eth0', '10.0.0.50/24', 'up')
+*** client49 : ('ifconfig lo up',)
+client50 *** client50 : ('ifconfig', 'client50-eth0', '10.0.0.51/24', 'up')
+*** client50 : ('ifconfig lo up',)
+client51 *** client51 : ('ifconfig', 'client51-eth0', '10.0.0.52/24', 'up')
+*** client51 : ('ifconfig lo up',)
+client52 *** client52 : ('ifconfig', 'client52-eth0', '10.0.0.53/24', 'up')
+*** client52 : ('ifconfig lo up',)
+client53 *** client53 : ('ifconfig', 'client53-eth0', '10.0.0.54/24', 'up')
+*** client53 : ('ifconfig lo up',)
+client54 *** client54 : ('ifconfig', 'client54-eth0', '10.0.0.55/24', 'up')
+*** client54 : ('ifconfig lo up',)
+client55 *** client55 : ('ifconfig', 'client55-eth0', '10.0.0.56/24', 'up')
+*** client55 : ('ifconfig lo up',)
+client56 *** client56 : ('ifconfig', 'client56-eth0', '10.0.0.57/24', 'up')
+*** client56 : ('ifconfig lo up',)
+client57 *** client57 : ('ifconfig', 'client57-eth0', '10.0.0.58/24', 'up')
+*** client57 : ('ifconfig lo up',)
+client58 *** client58 : ('ifconfig', 'client58-eth0', '10.0.0.59/24', 'up')
+*** client58 : ('ifconfig lo up',)
+client59 *** client59 : ('ifconfig', 'client59-eth0', '10.0.0.60/24', 'up')
+*** client59 : ('ifconfig lo up',)
+client60 *** client60 : ('ifconfig', 'client60-eth0', '10.0.0.61/24', 'up')
+*** client60 : ('ifconfig lo up',)
+client61 *** client61 : ('ifconfig', 'client61-eth0', '10.0.0.62/24', 'up')
+*** client61 : ('ifconfig lo up',)
+client62 *** client62 : ('ifconfig', 'client62-eth0', '10.0.0.63/24', 'up')
+*** client62 : ('ifconfig lo up',)
+client63 *** client63 : ('ifconfig', 'client63-eth0', '10.0.0.64/24', 'up')
+*** client63 : ('ifconfig lo up',)
+client64 *** client64 : ('ifconfig', 'client64-eth0', '10.0.0.65/24', 'up')
+*** client64 : ('ifconfig lo up',)
+client65 *** client65 : ('ifconfig', 'client65-eth0', '10.0.0.66/24', 'up')
+*** client65 : ('ifconfig lo up',)
+client66 *** client66 : ('ifconfig', 'client66-eth0', '10.0.0.67/24', 'up')
+*** client66 : ('ifconfig lo up',)
+client67 *** client67 : ('ifconfig', 'client67-eth0', '10.0.0.68/24', 'up')
+*** client67 : ('ifconfig lo up',)
+client68 *** client68 : ('ifconfig', 'client68-eth0', '10.0.0.69/24', 'up')
+*** client68 : ('ifconfig lo up',)
+client69 *** client69 : ('ifconfig', 'client69-eth0', '10.0.0.70/24', 'up')
+*** client69 : ('ifconfig lo up',)
+client70 *** client70 : ('ifconfig', 'client70-eth0', '10.0.0.71/24', 'up')
+*** client70 : ('ifconfig lo up',)
+client71 *** client71 : ('ifconfig', 'client71-eth0', '10.0.0.72/24', 'up')
+*** client71 : ('ifconfig lo up',)
+client72 *** client72 : ('ifconfig', 'client72-eth0', '10.0.0.73/24', 'up')
+*** client72 : ('ifconfig lo up',)
+client73 *** client73 : ('ifconfig', 'client73-eth0', '10.0.0.74/24', 'up')
+*** client73 : ('ifconfig lo up',)
+client74 *** client74 : ('ifconfig', 'client74-eth0', '10.0.0.75/24', 'up')
+*** client74 : ('ifconfig lo up',)
+client75 *** client75 : ('ifconfig', 'client75-eth0', '10.0.0.76/24', 'up')
+*** client75 : ('ifconfig lo up',)
+client76 *** client76 : ('ifconfig', 'client76-eth0', '10.0.0.77/24', 'up')
+*** client76 : ('ifconfig lo up',)
+client77 *** client77 : ('ifconfig', 'client77-eth0', '10.0.0.78/24', 'up')
+*** client77 : ('ifconfig lo up',)
+client78 *** client78 : ('ifconfig', 'client78-eth0', '10.0.0.79/24', 'up')
+*** client78 : ('ifconfig lo up',)
+client79 *** client79 : ('ifconfig', 'client79-eth0', '10.0.0.80/24', 'up')
+*** client79 : ('ifconfig lo up',)
+client80 *** client80 : ('ifconfig', 'client80-eth0', '10.0.0.81/24', 'up')
+*** client80 : ('ifconfig lo up',)
+client81 *** client81 : ('ifconfig', 'client81-eth0', '10.0.0.82/24', 'up')
+*** client81 : ('ifconfig lo up',)
+client82 *** client82 : ('ifconfig', 'client82-eth0', '10.0.0.83/24', 'up')
+*** client82 : ('ifconfig lo up',)
+client83 *** client83 : ('ifconfig', 'client83-eth0', '10.0.0.84/24', 'up')
+*** client83 : ('ifconfig lo up',)
+client84 *** client84 : ('ifconfig', 'client84-eth0', '10.0.0.85/24', 'up')
+*** client84 : ('ifconfig lo up',)
+client85 *** client85 : ('ifconfig', 'client85-eth0', '10.0.0.86/24', 'up')
+*** client85 : ('ifconfig lo up',)
+client86 *** client86 : ('ifconfig', 'client86-eth0', '10.0.0.87/24', 'up')
+*** client86 : ('ifconfig lo up',)
+client87 *** client87 : ('ifconfig', 'client87-eth0', '10.0.0.88/24', 'up')
+*** client87 : ('ifconfig lo up',)
+client88 *** client88 : ('ifconfig', 'client88-eth0', '10.0.0.89/24', 'up')
+*** client88 : ('ifconfig lo up',)
+client89 *** client89 : ('ifconfig', 'client89-eth0', '10.0.0.90/24', 'up')
+*** client89 : ('ifconfig lo up',)
+client90 *** client90 : ('ifconfig', 'client90-eth0', '10.0.0.91/24', 'up')
+*** client90 : ('ifconfig lo up',)
+client91 *** client91 : ('ifconfig', 'client91-eth0', '10.0.0.92/24', 'up')
+*** client91 : ('ifconfig lo up',)
+client92 *** client92 : ('ifconfig', 'client92-eth0', '10.0.0.93/24', 'up')
+*** client92 : ('ifconfig lo up',)
+client93 *** client93 : ('ifconfig', 'client93-eth0', '10.0.0.94/24', 'up')
+*** client93 : ('ifconfig lo up',)
+client94 *** client94 : ('ifconfig', 'client94-eth0', '10.0.0.95/24', 'up')
+*** client94 : ('ifconfig lo up',)
+client95 *** client95 : ('ifconfig', 'client95-eth0', '10.0.0.96/24', 'up')
+*** client95 : ('ifconfig lo up',)
+client96 *** client96 : ('ifconfig', 'client96-eth0', '10.0.0.97/24', 'up')
+*** client96 : ('ifconfig lo up',)
+client97 *** client97 : ('ifconfig', 'client97-eth0', '10.0.0.98/24', 'up')
+*** client97 : ('ifconfig lo up',)
+client98 *** client98 : ('ifconfig', 'client98-eth0', '10.0.0.99/24', 'up')
+*** client98 : ('ifconfig lo up',)
+client99 *** client99 : ('ifconfig', 'client99-eth0', '10.0.0.100/24', 'up')
+*** client99 : ('ifconfig lo up',)
+client100 *** client100 : ('ifconfig', 'client100-eth0', '10.0.0.101/24', 'up')
+*** client100 : ('ifconfig lo up',)
+
+*** Starting controller
+
+*** Starting 1 switches
+s1 *** s1 : ('ovs-vsctl', ' -- --if-exists del-br s1 -- add-br s1 -- set bridge s1 controller=[] other_config:datapath-id=0000000000000001 fail_mode=standalone other-config:disable-in-band=true other-config:dp-desc=s1 -- add-port s1 s1-eth1 -- set Interface s1-eth1 ofport_request=1 -- add-port s1 s1-eth2 -- set Interface s1-eth2 ofport_request=2 -- add-port s1 s1-eth3 -- set Interface s1-eth3 ofport_request=3 -- add-port s1 s1-eth4 -- set Interface s1-eth4 ofport_request=4 -- add-port s1 s1-eth5 -- set Interface s1-eth5 ofport_request=5 -- add-port s1 s1-eth6 -- set Interface s1-eth6 ofport_request=6 -- add-port s1 s1-eth7 -- set Interface s1-eth7 ofport_request=7 -- add-port s1 s1-eth8 -- set Interface s1-eth8 ofport_request=8 -- add-port s1 s1-eth9 -- set Interface s1-eth9 ofport_request=9 -- add-port s1 s1-eth10 -- set Interface s1-eth10 ofport_request=10 -- add-port s1 s1-eth11 -- set Interface s1-eth11 ofport_request=11 -- add-port s1 s1-eth12 -- set Interface s1-eth12 ofport_request=12 -- add-port s1 s1-eth13 -- set Interface s1-eth13 ofport_request=13 -- add-port s1 s1-eth14 -- set Interface s1-eth14 ofport_request=14 -- add-port s1 s1-eth15 -- set Interface s1-eth15 ofport_request=15 -- add-port s1 s1-eth16 -- set Interface s1-eth16 ofport_request=16 -- add-port s1 s1-eth17 -- set Interface s1-eth17 ofport_request=17 -- add-port s1 s1-eth18 -- set Interface s1-eth18 ofport_request=18 -- add-port s1 s1-eth19 -- set Interface s1-eth19 ofport_request=19 -- add-port s1 s1-eth20 -- set Interface s1-eth20 ofport_request=20 -- add-port s1 s1-eth21 -- set Interface s1-eth21 ofport_request=21 -- add-port s1 s1-eth22 -- set Interface s1-eth22 ofport_request=22 -- add-port s1 s1-eth23 -- set Interface s1-eth23 ofport_request=23 -- add-port s1 s1-eth24 -- set Interface s1-eth24 ofport_request=24 -- add-port s1 s1-eth25 -- set Interface s1-eth25 ofport_request=25 -- add-port s1 s1-eth26 -- set Interface s1-eth26 ofport_request=26 -- add-port s1 s1-eth27 -- set Interface s1-eth27 ofport_request=27 -- add-port s1 s1-eth28 -- set Interface s1-eth28 ofport_request=28 -- add-port s1 s1-eth29 -- set Interface s1-eth29 ofport_request=29 -- add-port s1 s1-eth30 -- set Interface s1-eth30 ofport_request=30 -- add-port s1 s1-eth31 -- set Interface s1-eth31 ofport_request=31 -- add-port s1 s1-eth32 -- set Interface s1-eth32 ofport_request=32 -- add-port s1 s1-eth33 -- set Interface s1-eth33 ofport_request=33 -- add-port s1 s1-eth34 -- set Interface s1-eth34 ofport_request=34 -- add-port s1 s1-eth35 -- set Interface s1-eth35 ofport_request=35 -- add-port s1 s1-eth36 -- set Interface s1-eth36 ofport_request=36 -- add-port s1 s1-eth37 -- set Interface s1-eth37 ofport_request=37 -- add-port s1 s1-eth38 -- set Interface s1-eth38 ofport_request=38 -- add-port s1 s1-eth39 -- set Interface s1-eth39 ofport_request=39 -- add-port s1 s1-eth40 -- set Interface s1-eth40 ofport_request=40 -- add-port s1 s1-eth41 -- set Interface s1-eth41 ofport_request=41 -- add-port s1 s1-eth42 -- set Interface s1-eth42 ofport_request=42 -- add-port s1 s1-eth43 -- set Interface s1-eth43 ofport_request=43 -- add-port s1 s1-eth44 -- set Interface s1-eth44 ofport_request=44 -- add-port s1 s1-eth45 -- set Interface s1-eth45 ofport_request=45 -- add-port s1 s1-eth46 -- set Interface s1-eth46 ofport_request=46 -- add-port s1 s1-eth47 -- set Interface s1-eth47 ofport_request=47 -- add-port s1 s1-eth48 -- set Interface s1-eth48 ofport_request=48 -- add-port s1 s1-eth49 -- set Interface s1-eth49 ofport_request=49 -- add-port s1 s1-eth50 -- set Interface s1-eth50 ofport_request=50 -- add-port s1 s1-eth51 -- set Interface s1-eth51 ofport_request=51 -- add-port s1 s1-eth52 -- set Interface s1-eth52 ofport_request=52 -- add-port s1 s1-eth53 -- set Interface s1-eth53 ofport_request=53 -- add-port s1 s1-eth54 -- set Interface s1-eth54 ofport_request=54 -- add-port s1 s1-eth55 -- set Interface s1-eth55 ofport_request=55 -- add-port s1 s1-eth56 -- set Interface s1-eth56 ofport_request=56 -- add-port s1 s1-eth57 -- set Interface s1-eth57 ofport_request=57 -- add-port s1 s1-eth58 -- set Interface s1-eth58 ofport_request=58 -- add-port s1 s1-eth59 -- set Interface s1-eth59 ofport_request=59 -- add-port s1 s1-eth60 -- set Interface s1-eth60 ofport_request=60 -- add-port s1 s1-eth61 -- set Interface s1-eth61 ofport_request=61 -- add-port s1 s1-eth62 -- set Interface s1-eth62 ofport_request=62 -- add-port s1 s1-eth63 -- set Interface s1-eth63 ofport_request=63 -- add-port s1 s1-eth64 -- set Interface s1-eth64 ofport_request=64 -- add-port s1 s1-eth65 -- set Interface s1-eth65 ofport_request=65 -- add-port s1 s1-eth66 -- set Interface s1-eth66 ofport_request=66 -- add-port s1 s1-eth67 -- set Interface s1-eth67 ofport_request=67 -- add-port s1 s1-eth68 -- set Interface s1-eth68 ofport_request=68 -- add-port s1 s1-eth69 -- set Interface s1-eth69 ofport_request=69 -- add-port s1 s1-eth70 -- set Interface s1-eth70 ofport_request=70 -- add-port s1 s1-eth71 -- set Interface s1-eth71 ofport_request=71 -- add-port s1 s1-eth72 -- set Interface s1-eth72 ofport_request=72 -- add-port s1 s1-eth73 -- set Interface s1-eth73 ofport_request=73 -- add-port s1 s1-eth74 -- set Interface s1-eth74 ofport_request=74 -- add-port s1 s1-eth75 -- set Interface s1-eth75 ofport_request=75 -- add-port s1 s1-eth76 -- set Interface s1-eth76 ofport_request=76 -- add-port s1 s1-eth77 -- set Interface s1-eth77 ofport_request=77 -- add-port s1 s1-eth78 -- set Interface s1-eth78 ofport_request=78 -- add-port s1 s1-eth79 -- set Interface s1-eth79 ofport_request=79 -- add-port s1 s1-eth80 -- set Interface s1-eth80 ofport_request=80 -- add-port s1 s1-eth81 -- set Interface s1-eth81 ofport_request=81 -- add-port s1 s1-eth82 -- set Interface s1-eth82 ofport_request=82 -- add-port s1 s1-eth83 -- set Interface s1-eth83 ofport_request=83 -- add-port s1 s1-eth84 -- set Interface s1-eth84 ofport_request=84 -- add-port s1 s1-eth85 -- set Interface s1-eth85 ofport_request=85 -- add-port s1 s1-eth86 -- set Interface s1-eth86 ofport_request=86 -- add-port s1 s1-eth87 -- set Interface s1-eth87 ofport_request=87 -- add-port s1 s1-eth88 -- set Interface s1-eth88 ofport_request=88 -- add-port s1 s1-eth89 -- set Interface s1-eth89 ofport_request=89 -- add-port s1 s1-eth90 -- set Interface s1-eth90 ofport_request=90 -- add-port s1 s1-eth91 -- set Interface s1-eth91 ofport_request=91 -- add-port s1 s1-eth92 -- set Interface s1-eth92 ofport_request=92 -- add-port s1 s1-eth93 -- set Interface s1-eth93 ofport_request=93 -- add-port s1 s1-eth94 -- set Interface s1-eth94 ofport_request=94 -- add-port s1 s1-eth95 -- set Interface s1-eth95 ofport_request=95 -- add-port s1 s1-eth96 -- set Interface s1-eth96 ofport_request=96 -- add-port s1 s1-eth97 -- set Interface s1-eth97 ofport_request=97 -- add-port s1 s1-eth98 -- set Interface s1-eth98 ofport_request=98 -- add-port s1 s1-eth99 -- set Interface s1-eth99 ofport_request=99 -- add-port s1 s1-eth100 -- set Interface s1-eth100 ofport_request=100 -- add-port s1 s1-eth101 -- set Interface s1-eth101 ofport_request=101')
+ovs-vsctl: 'set' command requires at least 3 arguments
+...*** errRun: ovs-vsctl 
+ ovs-vsctl: missing command name (use --help for help)
+ 1
+*** s1 : ('ovs-vsctl list-ports s1',)
+ovs-vsctl: no bridge named s1
+*** s1 : ('ovs-vsctl list-ports s1 | wc -l',)
+ovs-vsctl: no bridge named s1
+0
+*** s1 : ('ovs-vsctl show',)
+55a2e79d-75f4-4ed3-9d90-e20757ec4e0f
+    ovs_version: "3.7.1"
+client1 -> *** client1 : ('ping -c1  10.0.0.1',)
+PING 10.0.0.1 (10.0.0.1) 56(84) bytes of data.
+From 10.0.0.2 icmp_seq=1 Destination Host Unreachable
+
+--- 10.0.0.1 ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+X 
+server -> *** server : ('ping -c1  10.0.0.2',)
+PING 10.0.0.2 (10.0.0.2) 56(84) bytes of data.
+From 10.0.0.1 icmp_seq=1 Destination Host Unreachable
+
+--- 10.0.0.2 ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+X 
+*** Results: 100% dropped (0/2 received)
+client25 -> *** client25 : ('ping -c1  10.0.0.1',)
+PING 10.0.0.1 (10.0.0.1) 56(84) bytes of data.
+From 10.0.0.26 icmp_seq=1 Destination Host Unreachable
+
+--- 10.0.0.1 ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+X 
+server -> *** server : ('ping -c1  10.0.0.26',)
+PING 10.0.0.26 (10.0.0.26) 56(84) bytes of data.
+From 10.0.0.1 icmp_seq=1 Destination Host Unreachable
+
+--- 10.0.0.26 ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+X 
+*** Results: 100% dropped (0/2 received)
+client50 -> *** client50 : ('ping -c1  10.0.0.1',)
+PING 10.0.0.1 (10.0.0.1) 56(84) bytes of data.
+From 10.0.0.51 icmp_seq=1 Destination Host Unreachable
+
+--- 10.0.0.1 ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+X 
+server -> *** server : ('ping -c1  10.0.0.51',)
+PING 10.0.0.51 (10.0.0.51) 56(84) bytes of data.
+From 10.0.0.1 icmp_seq=1 Destination Host Unreachable
+
+--- 10.0.0.51 ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+X 
+*** Results: 100% dropped (0/2 received)
+client75 -> *** client75 : ('ping -c1  10.0.0.1',)
+PING 10.0.0.1 (10.0.0.1) 56(84) bytes of data.
+From 10.0.0.76 icmp_seq=1 Destination Host Unreachable
+
+--- 10.0.0.1 ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+X 
+server -> *** server : ('ping -c1  10.0.0.76',)
+PING 10.0.0.76 (10.0.0.76) 56(84) bytes of data.
+From 10.0.0.1 icmp_seq=1 Destination Host Unreachable
+
+--- 10.0.0.76 ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+X 
+*** Results: 100% dropped (0/2 received)
+client100 -> *** client100 : ('ping -c1  10.0.0.1',)
+PING 10.0.0.1 (10.0.0.1) 56(84) bytes of data.
+From 10.0.0.101 icmp_seq=1 Destination Host Unreachable
+
+--- 10.0.0.1 ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+X 
+server -> *** server : ('ping -c1  10.0.0.101',)
+PING 10.0.0.101 (10.0.0.101) 56(84) bytes of data.
+From 10.0.0.1 icmp_seq=1 Destination Host Unreachable
+
+--- 10.0.0.101 ping statistics ---
+1 packets transmitted, 0 received, +1 errors, 100% packet loss, time 0ms
+
+X 
+*** Results: 100% dropped (0/2 received)
+*** server : ('python3 Code/Server.py &',)
+[1] 43383
+_popen ['mnexec', '-da', '42442', '.venv/bin/python', '-u', 'Code/PacketCapture.py'] 43384_popen ['mnexec', '-da', '42455', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client1'] 43388_popen ['mnexec', '-da', '42476', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client2'] 43389_popen ['mnexec', '-da', '42482', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client3'] 43390_popen ['mnexec', '-da', '42488', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client4'] 43391_popen ['mnexec', '-da', '42494', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client5'] 43392_popen ['mnexec', '-da', '42500', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client6'] 43393_popen ['mnexec', '-da', '42506', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client7'] 43394_popen ['mnexec', '-da', '42512', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client8'] 43395_popen ['mnexec', '-da', '42518', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client9'] 43396_popen ['mnexec', '-da', '42524', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client10'] 43397_popen ['mnexec', '-da', '42530', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client11'] 43398_popen ['mnexec', '-da', '42536', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client12'] 43399_popen ['mnexec', '-da', '42542', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client13'] 43400_popen ['mnexec', '-da', '42548', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client14'] 43401_popen ['mnexec', '-da', '42554', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client15'] 43402_popen ['mnexec', '-da', '42563', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client16'] 43403_popen ['mnexec', '-da', '42569', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client17'] 43405_popen ['mnexec', '-da', '42578', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client18'] 43408_popen ['mnexec', '-da', '42584', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client19'] 43409_popen ['mnexec', '-da', '42590', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client20'] 43410_popen ['mnexec', '-da', '42596', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client21'] 43411_popen ['mnexec', '-da', '42602', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client22'] 43412_popen ['mnexec', '-da', '42608', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client23'] 43413_popen ['mnexec', '-da', '42614', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client24'] 43414_popen ['mnexec', '-da', '42620', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client25'] 43415_popen ['mnexec', '-da', '42626', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client26'] 43416_popen ['mnexec', '-da', '42632', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client27'] 43417_popen ['mnexec', '-da', '42638', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client28'] 43418_popen ['mnexec', '-da', '42644', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client29'] 43419_popen ['mnexec', '-da', '42650', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client30'] 43420_popen ['mnexec', '-da', '42656', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client31'] 43421_popen ['mnexec', '-da', '42662', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client32'] 43422_popen ['mnexec', '-da', '42668', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client33'] 43423_popen ['mnexec', '-da', '42674', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client34'] 43424_popen ['mnexec', '-da', '42680', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client35'] 43425_popen ['mnexec', '-da', '42686', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client36'] 43426_popen ['mnexec', '-da', '42692', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client37'] 43427_popen ['mnexec', '-da', '42698', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client38'] 43428_popen ['mnexec', '-da', '42704', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client39'] 43429_popen ['mnexec', '-da', '42710', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client40'] 43430_popen ['mnexec', '-da', '42716', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client41'] 43431_popen ['mnexec', '-da', '42722', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client42'] 43432_popen ['mnexec', '-da', '42728', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client43'] 43433_popen ['mnexec', '-da', '42734', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client44'] 43434_popen ['mnexec', '-da', '42740', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client45'] 43435_popen ['mnexec', '-da', '42746', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client46'] 43436_popen ['mnexec', '-da', '42752', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client47'] 43437_popen ['mnexec', '-da', '42758', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client48'] 43438_popen ['mnexec', '-da', '42764', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client49'] 43439_popen ['mnexec', '-da', '42770', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client50'] 43440_popen ['mnexec', '-da', '42776', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client51'] 43441_popen ['mnexec', '-da', '42782', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client52'] 43442_popen ['mnexec', '-da', '42791', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client53'] 43443_popen ['mnexec', '-da', '42797', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client54'] 43444_popen ['mnexec', '-da', '42803', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client55'] 43445_popen ['mnexec', '-da', '42809', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client56'] 43446_popen ['mnexec', '-da', '42818', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client57'] 43447_popen ['mnexec', '-da', '42824', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client58'] 43448_popen ['mnexec', '-da', '42830', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client59'] 43449_popen ['mnexec', '-da', '42836', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client60'] 43450_popen ['mnexec', '-da', '42842', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client61'] 43451_popen ['mnexec', '-da', '42848', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client62'] 43452_popen ['mnexec', '-da', '42854', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client63'] 43453_popen ['mnexec', '-da', '42860', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client64'] 43454_popen ['mnexec', '-da', '42866', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client65'] 43455_popen ['mnexec', '-da', '42872', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client66'] 43456_popen ['mnexec', '-da', '42878', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client67'] 43457_popen ['mnexec', '-da', '42884', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client68'] 43458_popen ['mnexec', '-da', '42890', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client69'] 43459_popen ['mnexec', '-da', '42896', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client70'] 43460_popen ['mnexec', '-da', '42902', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client71'] 43461_popen ['mnexec', '-da', '42908', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client72'] 43462_popen ['mnexec', '-da', '42914', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client73'] 43463_popen ['mnexec', '-da', '42921', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client74'] 43464_popen ['mnexec', '-da', '42927', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client75'] 43465_popen ['mnexec', '-da', '42933', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client76'] 43466_popen ['mnexec', '-da', '42939', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client77'] 43467_popen ['mnexec', '-da', '42945', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client78'] 43468_popen ['mnexec', '-da', '42951', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client79'] 43469_popen ['mnexec', '-da', '42957', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client80'] 43470_popen ['mnexec', '-da', '42963', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client81'] 43471_popen ['mnexec', '-da', '42969', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client82'] 43472_popen ['mnexec', '-da', '42975', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client83'] 43473_popen ['mnexec', '-da', '42981', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client84'] 43474_popen ['mnexec', '-da', '42990', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client85'] 43475_popen ['mnexec', '-da', '42996', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client86'] 43476_popen ['mnexec', '-da', '43002', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client87'] 43477_popen ['mnexec', '-da', '43008', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client88'] 43478_popen ['mnexec', '-da', '43014', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client89'] 43479_popen ['mnexec', '-da', '43023', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client90'] 43480_popen ['mnexec', '-da', '43029', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client91'] 43481_popen ['mnexec', '-da', '43035', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client92'] 43482_popen ['mnexec', '-da', '43041', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client93'] 43483_popen ['mnexec', '-da', '43047', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client94'] 43484_popen ['mnexec', '-da', '43053', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client95'] 43485_popen ['mnexec', '-da', '43059', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client96'] 43486_popen ['mnexec', '-da', '43065', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client97'] 43487_popen ['mnexec', '-da', '43071', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client98'] 43488_popen ['mnexec', '-da', '43077', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client99'] 43489_popen ['mnexec', '-da', '43083', 'python3', 'Code/Client.py', '--duration', '300', '--interval', '0.5', '--client-id', 'client100'] 43490*** Stopping 0 controllers
+
+*** Stopping 101 links
+.*** server : ('ip link del server-eth0',)
+HTTP Server listening on port 5000
+*** s1 : ('ip link del s1-eth1',)
+Cannot find device "s1-eth1"
+.*** client1 : ('ip link del client1-eth0',)
+*** s1 : ('ip link del s1-eth2',)
+Cannot find device "s1-eth2"
+.*** client2 : ('ip link del client2-eth0',)
+*** s1 : ('ip link del s1-eth3',)
+Cannot find device "s1-eth3"
+.*** client3 : ('ip link del client3-eth0',)
+*** s1 : ('ip link del s1-eth4',)
+Cannot find device "s1-eth4"
+.*** client4 : ('ip link del client4-eth0',)
+*** s1 : ('ip link del s1-eth5',)
+Cannot find device "s1-eth5"
+.*** client5 : ('ip link del client5-eth0',)
+*** s1 : ('ip link del s1-eth6',)
+Cannot find device "s1-eth6"
+.*** client6 : ('ip link del client6-eth0',)
+*** s1 : ('ip link del s1-eth7',)
+Cannot find device "s1-eth7"
+.*** client7 : ('ip link del client7-eth0',)
+*** s1 : ('ip link del s1-eth8',)
+Cannot find device "s1-eth8"
+.*** client8 : ('ip link del client8-eth0',)
+*** s1 : ('ip link del s1-eth9',)
+Cannot find device "s1-eth9"
+.*** client9 : ('ip link del client9-eth0',)
+*** s1 : ('ip link del s1-eth10',)
+Cannot find device "s1-eth10"
+.*** client10 : ('ip link del client10-eth0',)
+*** s1 : ('ip link del s1-eth11',)
+Cannot find device "s1-eth11"
+.*** client11 : ('ip link del client11-eth0',)
+*** s1 : ('ip link del s1-eth12',)
+Cannot find device "s1-eth12"
+.*** client12 : ('ip link del client12-eth0',)
+*** s1 : ('ip link del s1-eth13',)
+Cannot find device "s1-eth13"
+.*** client13 : ('ip link del client13-eth0',)
+*** s1 : ('ip link del s1-eth14',)
+Cannot find device "s1-eth14"
+.*** client14 : ('ip link del client14-eth0',)
+*** s1 : ('ip link del s1-eth15',)
+Cannot find device "s1-eth15"
+.*** client15 : ('ip link del client15-eth0',)
+*** s1 : ('ip link del s1-eth16',)
+Cannot find device "s1-eth16"
+.*** client16 : ('ip link del client16-eth0',)
+*** s1 : ('ip link del s1-eth17',)
+Cannot find device "s1-eth17"
+.*** client17 : ('ip link del client17-eth0',)
+*** s1 : ('ip link del s1-eth18',)
+Cannot find device "s1-eth18"
+.*** client18 : ('ip link del client18-eth0',)
+*** s1 : ('ip link del s1-eth19',)
+Cannot find device "s1-eth19"
+.*** client19 : ('ip link del client19-eth0',)
+*** s1 : ('ip link del s1-eth20',)
+Cannot find device "s1-eth20"
+.*** client20 : ('ip link del client20-eth0',)
+*** s1 : ('ip link del s1-eth21',)
+Cannot find device "s1-eth21"
+.*** client21 : ('ip link del client21-eth0',)
+*** s1 : ('ip link del s1-eth22',)
+Cannot find device "s1-eth22"
+.*** client22 : ('ip link del client22-eth0',)
+*** s1 : ('ip link del s1-eth23',)
+Cannot find device "s1-eth23"
+.*** client23 : ('ip link del client23-eth0',)
+*** s1 : ('ip link del s1-eth24',)
+Cannot find device "s1-eth24"
+.*** client24 : ('ip link del client24-eth0',)
+*** s1 : ('ip link del s1-eth25',)
+Cannot find device "s1-eth25"
+.*** client25 : ('ip link del client25-eth0',)
+*** s1 : ('ip link del s1-eth26',)
+Cannot find device "s1-eth26"
+.*** client26 : ('ip link del client26-eth0',)
+*** s1 : ('ip link del s1-eth27',)
+Cannot find device "s1-eth27"
+.*** client27 : ('ip link del client27-eth0',)
+*** s1 : ('ip link del s1-eth28',)
+Cannot find device "s1-eth28"
+.*** client28 : ('ip link del client28-eth0',)
+*** s1 : ('ip link del s1-eth29',)
+Cannot find device "s1-eth29"
+.*** client29 : ('ip link del client29-eth0',)
+*** s1 : ('ip link del s1-eth30',)
+Cannot find device "s1-eth30"
+.*** client30 : ('ip link del client30-eth0',)
+*** s1 : ('ip link del s1-eth31',)
+Cannot find device "s1-eth31"
+.*** client31 : ('ip link del client31-eth0',)
+*** s1 : ('ip link del s1-eth32',)
+Cannot find device "s1-eth32"
+.*** client32 : ('ip link del client32-eth0',)
+*** s1 : ('ip link del s1-eth33',)
+Cannot find device "s1-eth33"
+.*** client33 : ('ip link del client33-eth0',)
+*** s1 : ('ip link del s1-eth34',)
+Cannot find device "s1-eth34"
+.*** client34 : ('ip link del client34-eth0',)
+*** s1 : ('ip link del s1-eth35',)
+Cannot find device "s1-eth35"
+.*** client35 : ('ip link del client35-eth0',)
+*** s1 : ('ip link del s1-eth36',)
+Cannot find device "s1-eth36"
+.*** client36 : ('ip link del client36-eth0',)
+*** s1 : ('ip link del s1-eth37',)
+Cannot find device "s1-eth37"
+.*** client37 : ('ip link del client37-eth0',)
+*** s1 : ('ip link del s1-eth38',)
+Cannot find device "s1-eth38"
+.*** client38 : ('ip link del client38-eth0',)
+*** s1 : ('ip link del s1-eth39',)
+Cannot find device "s1-eth39"
+.*** client39 : ('ip link del client39-eth0',)
+*** s1 : ('ip link del s1-eth40',)
+Cannot find device "s1-eth40"
+.*** client40 : ('ip link del client40-eth0',)
+*** s1 : ('ip link del s1-eth41',)
+Cannot find device "s1-eth41"
+.*** client41 : ('ip link del client41-eth0',)
+*** s1 : ('ip link del s1-eth42',)
+Cannot find device "s1-eth42"
+.*** client42 : ('ip link del client42-eth0',)
+*** s1 : ('ip link del s1-eth43',)
+Cannot find device "s1-eth43"
+.*** client43 : ('ip link del client43-eth0',)
+*** s1 : ('ip link del s1-eth44',)
+Cannot find device "s1-eth44"
+.*** client44 : ('ip link del client44-eth0',)
+*** s1 : ('ip link del s1-eth45',)
+Cannot find device "s1-eth45"
+.*** client45 : ('ip link del client45-eth0',)
+*** s1 : ('ip link del s1-eth46',)
+Cannot find device "s1-eth46"
+.*** client46 : ('ip link del client46-eth0',)
+*** s1 : ('ip link del s1-eth47',)
+Cannot find device "s1-eth47"
+.*** client47 : ('ip link del client47-eth0',)
+*** s1 : ('ip link del s1-eth48',)
+Cannot find device "s1-eth48"
+.*** client48 : ('ip link del client48-eth0',)
+*** s1 : ('ip link del s1-eth49',)
+Cannot find device "s1-eth49"
+.*** client49 : ('ip link del client49-eth0',)
+*** s1 : ('ip link del s1-eth50',)
+Cannot find device "s1-eth50"
+.*** client50 : ('ip link del client50-eth0',)
+*** s1 : ('ip link del s1-eth51',)
+Cannot find device "s1-eth51"
+.*** client51 : ('ip link del client51-eth0',)
+*** s1 : ('ip link del s1-eth52',)
+Cannot find device "s1-eth52"
+.*** client52 : ('ip link del client52-eth0',)
+*** s1 : ('ip link del s1-eth53',)
+Cannot find device "s1-eth53"
+.*** client53 : ('ip link del client53-eth0',)
+*** s1 : ('ip link del s1-eth54',)
+Cannot find device "s1-eth54"
+.*** client54 : ('ip link del client54-eth0',)
+*** s1 : ('ip link del s1-eth55',)
+Cannot find device "s1-eth55"
+.*** client55 : ('ip link del client55-eth0',)
+*** s1 : ('ip link del s1-eth56',)
+Cannot find device "s1-eth56"
+.*** client56 : ('ip link del client56-eth0',)
+*** s1 : ('ip link del s1-eth57',)
+Cannot find device "s1-eth57"
+.*** client57 : ('ip link del client57-eth0',)
+*** s1 : ('ip link del s1-eth58',)
+Cannot find device "s1-eth58"
+.*** client58 : ('ip link del client58-eth0',)
+*** s1 : ('ip link del s1-eth59',)
+Cannot find device "s1-eth59"
+.*** client59 : ('ip link del client59-eth0',)
+*** s1 : ('ip link del s1-eth60',)
+Cannot find device "s1-eth60"
+.*** client60 : ('ip link del client60-eth0',)
+*** s1 : ('ip link del s1-eth61',)
+Cannot find device "s1-eth61"
+.*** client61 : ('ip link del client61-eth0',)
+*** s1 : ('ip link del s1-eth62',)
+Cannot find device "s1-eth62"
+.*** client62 : ('ip link del client62-eth0',)
+*** s1 : ('ip link del s1-eth63',)
+Cannot find device "s1-eth63"
+.*** client63 : ('ip link del client63-eth0',)
+*** s1 : ('ip link del s1-eth64',)
+Cannot find device "s1-eth64"
+.*** client64 : ('ip link del client64-eth0',)
+*** s1 : ('ip link del s1-eth65',)
+Cannot find device "s1-eth65"
+.*** client65 : ('ip link del client65-eth0',)
+*** s1 : ('ip link del s1-eth66',)
+Cannot find device "s1-eth66"
+.*** client66 : ('ip link del client66-eth0',)
+*** s1 : ('ip link del s1-eth67',)
+Cannot find device "s1-eth67"
+.*** client67 : ('ip link del client67-eth0',)
+*** s1 : ('ip link del s1-eth68',)
+Cannot find device "s1-eth68"
+.*** client68 : ('ip link del client68-eth0',)
+*** s1 : ('ip link del s1-eth69',)
+Cannot find device "s1-eth69"
+.*** client69 : ('ip link del client69-eth0',)
+*** s1 : ('ip link del s1-eth70',)
+Cannot find device "s1-eth70"
+.*** client70 : ('ip link del client70-eth0',)
+*** s1 : ('ip link del s1-eth71',)
+Cannot find device "s1-eth71"
+.*** client71 : ('ip link del client71-eth0',)
+*** s1 : ('ip link del s1-eth72',)
+Cannot find device "s1-eth72"
+.*** client72 : ('ip link del client72-eth0',)
+*** s1 : ('ip link del s1-eth73',)
+Cannot find device "s1-eth73"
+.*** client73 : ('ip link del client73-eth0',)
+*** s1 : ('ip link del s1-eth74',)
+Cannot find device "s1-eth74"
+.*** client74 : ('ip link del client74-eth0',)
+*** s1 : ('ip link del s1-eth75',)
+Cannot find device "s1-eth75"
+.*** client75 : ('ip link del client75-eth0',)
+*** s1 : ('ip link del s1-eth76',)
+Cannot find device "s1-eth76"
+.*** client76 : ('ip link del client76-eth0',)
+*** s1 : ('ip link del s1-eth77',)
+Cannot find device "s1-eth77"
+.*** client77 : ('ip link del client77-eth0',)
+*** s1 : ('ip link del s1-eth78',)
+Cannot find device "s1-eth78"
+.*** client78 : ('ip link del client78-eth0',)
+*** s1 : ('ip link del s1-eth79',)
+Cannot find device "s1-eth79"
+.*** client79 : ('ip link del client79-eth0',)
+*** s1 : ('ip link del s1-eth80',)
+Cannot find device "s1-eth80"
+.*** client80 : ('ip link del client80-eth0',)
+*** s1 : ('ip link del s1-eth81',)
+Cannot find device "s1-eth81"
+.*** client81 : ('ip link del client81-eth0',)
+*** s1 : ('ip link del s1-eth82',)
+Cannot find device "s1-eth82"
+.*** client82 : ('ip link del client82-eth0',)
+*** s1 : ('ip link del s1-eth83',)
+Cannot find device "s1-eth83"
+.*** client83 : ('ip link del client83-eth0',)
+*** s1 : ('ip link del s1-eth84',)
+Cannot find device "s1-eth84"
+.*** client84 : ('ip link del client84-eth0',)
+*** s1 : ('ip link del s1-eth85',)
+Cannot find device "s1-eth85"
+.*** client85 : ('ip link del client85-eth0',)
+*** s1 : ('ip link del s1-eth86',)
+Cannot find device "s1-eth86"
+.*** client86 : ('ip link del client86-eth0',)
+*** s1 : ('ip link del s1-eth87',)
+Cannot find device "s1-eth87"
+.*** client87 : ('ip link del client87-eth0',)
+*** s1 : ('ip link del s1-eth88',)
+Cannot find device "s1-eth88"
+.*** client88 : ('ip link del client88-eth0',)
+*** s1 : ('ip link del s1-eth89',)
+Cannot find device "s1-eth89"
+.*** client89 : ('ip link del client89-eth0',)
+*** s1 : ('ip link del s1-eth90',)
+Cannot find device "s1-eth90"
+.*** client90 : ('ip link del client90-eth0',)
+*** s1 : ('ip link del s1-eth91',)
+Cannot find device "s1-eth91"
+.*** client91 : ('ip link del client91-eth0',)
+*** s1 : ('ip link del s1-eth92',)
+Cannot find device "s1-eth92"
+.*** client92 : ('ip link del client92-eth0',)
+*** s1 : ('ip link del s1-eth93',)
+Cannot find device "s1-eth93"
+.*** client93 : ('ip link del client93-eth0',)
+*** s1 : ('ip link del s1-eth94',)
+Cannot find device "s1-eth94"
+.*** client94 : ('ip link del client94-eth0',)
+*** s1 : ('ip link del s1-eth95',)
+Cannot find device "s1-eth95"
+.*** client95 : ('ip link del client95-eth0',)
+*** s1 : ('ip link del s1-eth96',)
+Cannot find device "s1-eth96"
+.*** client96 : ('ip link del client96-eth0',)
+*** s1 : ('ip link del s1-eth97',)
+Cannot find device "s1-eth97"
+.*** client97 : ('ip link del client97-eth0',)
+*** s1 : ('ip link del s1-eth98',)
+Cannot find device "s1-eth98"
+.*** client98 : ('ip link del client98-eth0',)
+*** s1 : ('ip link del s1-eth99',)
+Cannot find device "s1-eth99"
+.*** client99 : ('ip link del client99-eth0',)
+*** s1 : ('ip link del s1-eth100',)
+Cannot find device "s1-eth100"
+.*** client100 : ('ip link del client100-eth0',)
+*** s1 : ('ip link del s1-eth101',)
+Cannot find device "s1-eth101"
+
+*** Stopping 1 switches
+*** errRun: ['ovs-vsctl', '--if-exists', 'del-br', 's1'] 
+  0*** errRun: ['kill', '-HUP', '42447'] 
+  0waiting for 42447 to terminate
+s1 
+*** Stopping 101 hosts
+server waiting for 42442 to terminate
+client1 waiting for 42455 to terminate
+client2 waiting for 42476 to terminate
+client3 waiting for 42482 to terminate
+client4 waiting for 42488 to terminate
+client5 waiting for 42494 to terminate
+client6 waiting for 42500 to terminate
+client7 waiting for 42506 to terminate
+client8 waiting for 42512 to terminate
+client9 waiting for 42518 to terminate
+client10 waiting for 42524 to terminate
+client11 waiting for 42530 to terminate
+client12 waiting for 42536 to terminate
+client13 waiting for 42542 to terminate
+client14 waiting for 42548 to terminate
+client15 waiting for 42554 to terminate
+client16 waiting for 42563 to terminate
+client17 waiting for 42569 to terminate
+client18 waiting for 42578 to terminate
+client19 waiting for 42584 to terminate
+client20 waiting for 42590 to terminate
+client21 waiting for 42596 to terminate
+client22 waiting for 42602 to terminate
+client23 waiting for 42608 to terminate
+client24 waiting for 42614 to terminate
+client25 waiting for 42620 to terminate
+client26 waiting for 42626 to terminate
+client27 waiting for 42632 to terminate
+client28 waiting for 42638 to terminate
+client29 waiting for 42644 to terminate
+client30 waiting for 42650 to terminate
+client31 waiting for 42656 to terminate
+client32 waiting for 42662 to terminate
+client33 waiting for 42668 to terminate
+client34 waiting for 42674 to terminate
+client35 waiting for 42680 to terminate
+client36 waiting for 42686 to terminate
+client37 waiting for 42692 to terminate
+client38 waiting for 42698 to terminate
+client39 waiting for 42704 to terminate
+client40 waiting for 42710 to terminate
+client41 waiting for 42716 to terminate
+client42 waiting for 42722 to terminate
+client43 waiting for 42728 to terminate
+client44 waiting for 42734 to terminate
+client45 waiting for 42740 to terminate
+client46 waiting for 42746 to terminate
+client47 waiting for 42752 to terminate
+client48 waiting for 42758 to terminate
+client49 waiting for 42764 to terminate
+client50 waiting for 42770 to terminate
+client51 waiting for 42776 to terminate
+client52 waiting for 42782 to terminate
+client53 waiting for 42791 to terminate
+client54 waiting for 42797 to terminate
+client55 waiting for 42803 to terminate
+client56 waiting for 42809 to terminate
+client57 waiting for 42818 to terminate
+client58 waiting for 42824 to terminate
+client59 waiting for 42830 to terminate
+client60 waiting for 42836 to terminate
+client61 waiting for 42842 to terminate
+client62 waiting for 42848 to terminate
+client63 waiting for 42854 to terminate
+client64 waiting for 42860 to terminate
+client65 waiting for 42866 to terminate
+client66 waiting for 42872 to terminate
+client67 waiting for 42878 to terminate
+client68 waiting for 42884 to terminate
+client69 waiting for 42890 to terminate
+client70 waiting for 42896 to terminate
+client71 waiting for 42902 to terminate
+client72 waiting for 42908 to terminate
+client73 waiting for 42914 to terminate
+client74 waiting for 42921 to terminate
+client75 waiting for 42927 to terminate
+client76 waiting for 42933 to terminate
+client77 waiting for 42939 to terminate
+client78 waiting for 42945 to terminate
+client79 waiting for 42951 to terminate
+client80 waiting for 42957 to terminate
+client81 waiting for 42963 to terminate
+client82 waiting for 42969 to terminate
+client83 waiting for 42975 to terminate
+client84 waiting for 42981 to terminate
+client85 waiting for 42990 to terminate
+client86 waiting for 42996 to terminate
+client87 waiting for 43002 to terminate
+client88 waiting for 43008 to terminate
+client89 waiting for 43014 to terminate
+client90 waiting for 43023 to terminate
+client91 waiting for 43029 to terminate
+client92 waiting for 43035 to terminate
+client93 waiting for 43041 to terminate
+client94 waiting for 43047 to terminate
+client95 waiting for 43053 to terminate
+client96 waiting for 43059 to terminate
+client97 waiting for 43065 to terminate
+client98 waiting for 43071 to terminate
+client99 waiting for 43077 to terminate
+client100 waiting for 43083 to terminate
+
+*** Done
+Switch type: <class 'mininet.node.OVSBridge'>
+=== SWITCH STATUS ===
+ovs-vsctl: no bridge named s1
+
+=== ANTAL SWITCH PORTE ===
+ovs-vsctl: no bridge named s1
+0
+
+=== SWITCH INFORMATION ===
+55a2e79d-75f4-4ed3-9d90-e20757ec4e0f
+    ovs_version: "3.7.1"
+
+=== TEST AF NETVÆRK ===
+client1 -> server: 100.0% packet loss
+client25 -> server: 100.0% packet loss
+client50 -> server: 100.0% packet loss
+client75 -> server: 100.0% packet loss
+client100 -> server: 100.0% packet loss
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+Client exit code: 0
+PacketCapture exit code: 0
