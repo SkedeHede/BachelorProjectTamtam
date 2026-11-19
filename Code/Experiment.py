@@ -25,22 +25,23 @@ def start_server(server):
     server.cmd("python3 Code/Server.py &")
 
 #Udfører kommando til at starte en klient
-def start_client(client, duration):
+def start_client(client, duration, experiment_dir):
     process = client.popen(
     "python3",
     "Code/Client.py",
     "--duration", str(duration),
     "--interval", "0.5",
-    "--client-id", client.name
+    "--client-id", client.name,
+    "--log-dir", str(experiment_dir)
     )
     return process
 
-def start_clients(net, num_clients, duration):
+def start_clients(net, num_clients, duration, experiment_dir):
     processes = []
 
     for i in range(1, num_clients + 1):
         client = net.get(f"client{i}")
-        process = start_client(client, duration)
+        process = start_client(client, duration, experiment_dir)
         processes.append(process)
 
     return processes
@@ -77,7 +78,7 @@ def main():
         capture_process = start_Capture(server)
         time.sleep(1)
 
-        processes = start_clients(net, num_clients=100, duration=300)
+        processes = start_clients(net, num_clients=100, duration=300, experiment_dir=experiment_dir)
 
         for process in processes:
             exit_code = process.wait()

@@ -15,7 +15,7 @@ SERVER_IP = "10.0.0.1"
 SERVER_PORT = 5000
 
 
-def send_requests(num_requests, interval, client_id, duration=None):
+def send_requests(num_requests, interval, client_id, duration=None, log_dir="logs"):
     #Sender HTTP-requests indtil det ønskede antal eller forsøgsvarighed er nået
 
     #Starter tidsmålingen for hele eksperimentet
@@ -85,7 +85,8 @@ def send_requests(num_requests, interval, client_id, duration=None):
                 client_id=client_id,
                 request_id=i,
                 latency=latency_ms,
-                status=status
+                status=status,
+                log_dir=log_dir
             )
 
         #Registrerer timeout og gemmer resultatet i logfilen
@@ -96,7 +97,8 @@ def send_requests(num_requests, interval, client_id, duration=None):
                 client_id=client_id,
                 request_id=i,
                 latency=None,
-                status="TIMEOUT"
+                status="TIMEOUT",
+                log_dir=log_dir
             )
 
         #Registrerer netværks- og forbindelsesfejl og gemmer resultatet i logfilen
@@ -107,7 +109,8 @@ def send_requests(num_requests, interval, client_id, duration=None):
                 client_id=client_id,
                 request_id=i,
                 latency=None,
-                status="CONNECTION_ERROR"
+                status="CONNECTION_ERROR",
+                log_dir=log_dir
             )
 
         #Registrerer HTTP-protokolfejl og gemmer resultatet i logfilen
@@ -118,7 +121,8 @@ def send_requests(num_requests, interval, client_id, duration=None):
                 client_id=client_id,
                 request_id=i,
                 latency=None,
-                status="HTTP_ERROR"
+                status="HTTP_ERROR",
+                log_dir=log_dir
             )
 
         #Lukker HTTP-forbindelsen, uanset om requestet lykkedes eller fejlede
@@ -146,8 +150,8 @@ def send_requests(num_requests, interval, client_id, duration=None):
 
 def log_request(client_id, request_id, latency, status):
     #Opretter en mappe til logfiler, hvis den ikke allerede eksisterer
-    log_dir = Path("logs")
-    log_dir.mkdir(exist_ok=True)
+    log_dir = Path(log_dir)
+    log_dir.mkdir(parents=True, exist_ok=True)
 
     #Opretter en separat logfil for hver klient
     log_file = log_dir / f"client_{client_id}_log.csv"
@@ -221,6 +225,14 @@ if __name__ == "__main__":
         help="Identifier for the client"
     )
 
+    #Path for specifikt eksperiment
+    parser.add_argument(
+        "--log-dir",
+        type=str,
+        default="logs",
+        help="Directory for client log files"
+    )
+
     #Indlæser argumenterne fra kommandolinjen
     args = parser.parse_args()
 
@@ -250,5 +262,6 @@ if __name__ == "__main__":
         args.requests,
         args.interval,
         args.client_id,
-        args.duration
+        args.duration,
+        args.log_dir
     )
