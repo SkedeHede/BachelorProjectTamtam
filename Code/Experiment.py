@@ -1,6 +1,24 @@
 from Topology import create_network
 import time
 from mininet.log import setLogLevel #for at teste fejl
+from pathlib import Path
+
+#Global counter til eksåerimentforsøg
+Counter_file = Path("Experiment_Counter.txt")
+
+def get_next_experiment_ID():
+    if Counter_file.exists():
+        with open(Counter_file, "r") as file:
+            counter = int(file.read())
+        counter += 1
+        
+        with open(Counter_file, "w") as file:
+            file.write(str(counter))
+    else:
+        with open(Counter_file, "w") as file:
+            counter = 1
+            file.write(str(counter))
+    return counter
 
 #Udfører kommando til at starte server
 def start_server(server):
@@ -39,6 +57,13 @@ def start_Capture(server):
     return process
 
 def main():
+
+    experiment_id = get_next_experiment_ID
+    experiment_dir = Path("logs") / f"experiment_{experiment_id:03d}"
+
+    experiment_dir.mkdir(parents=True, exist_ok=True)
+
+
     net = create_network(
         num_clients=100, #ændret for nu
         num_attackers=0, #0 for baseline experimentet
