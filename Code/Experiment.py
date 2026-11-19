@@ -47,23 +47,29 @@ def start_clients(net, num_clients, duration, experiment_dir):
     return processes
 
 
-def start_Capture(server):
+def start_Capture(server, pcap_file):
     process = server.popen(
 
     ".venv/bin/python",
     "-u",
-    "Code/PacketCapture.py"
+    "Code/PacketCapture.py",
+    "--output", str(pcap_file)
     )
 
     return process
 
 def main():
 
-    experiment_id = get_next_experiment_ID
-    experiment_dir = Path("logs") / f"experiment_{experiment_id:03d}"
+    experiment_id = get_next_experiment_ID()
+    experiment_dir = Path("logs") / "csv" / f"experiment_{experiment_id:03d}"
 
     experiment_dir.mkdir(parents=True, exist_ok=True)
 
+
+    pcap_dir = Path("logs") / "pcap" 
+    pcap_dir.mkdir(parents=True, exist_ok=True)
+
+    pcap_file = pcap_dir / f"experiment_{experiment_id:03d}.pcap"
 
     net = create_network(
         num_clients=100, #ændret for nu
@@ -75,7 +81,7 @@ def main():
         start_server(server)
         time.sleep(1)
 
-        capture_process = start_Capture(server)
+        capture_process = start_Capture(server, pcap_file)
         time.sleep(1)
 
         processes = start_clients(net, num_clients=100, duration=300, experiment_dir=experiment_dir)

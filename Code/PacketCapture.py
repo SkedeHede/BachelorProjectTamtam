@@ -1,5 +1,24 @@
 from scapy.all import sniff, wrpcap, IP, TCP
 
+import argparse
+from pathlib import Path
+
+parser = argparse.ArgumentParser(
+    description="Capture TCP packets from Mininet server"
+)
+
+parser.add_argument(
+    "--output",
+    type=str,
+    default="logs/pcap/captured_packets.pcap",
+    help="Path to the output PCAP file"
+)
+
+args = parser.parse_args()
+
+output_file = Path(args.output)
+output_file.parent.mkdir(parents=True, exist_ok=True)
+
 # Opfang de første 20 TCP-pakker
 packets = sniff(
     iface="server-eth0", #Serverens netværksinterface (server-eth0 for mininet)
@@ -8,7 +27,7 @@ packets = sniff(
 )
 
 #Gem de opfangede pakkerserver .venv/bin/python -u Code/PacketCapture.py &
-wrpcap("captured_packets.pcap", packets)
+wrpcap(str(output_file), packets)
 
 
 for p in packets:
