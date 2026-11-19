@@ -77,7 +77,7 @@ def create_network(num_clients=100, num_attackers=1, interactive=True): #hardcod
 
     server = net.get("server")
 
-    for i in [1, 25, 50, 75, 100]:
+    for i in (1, num_clients + 1):
         client = net.get(f"client{i}")
         packet_loss = net.ping(hosts=[client, server])
         print(f"client{i} -> server: {packet_loss}% packet loss")
