@@ -148,7 +148,7 @@ def send_requests(num_requests, interval, client_id, duration=None, log_dir="log
                     time.sleep(min(interval, remaining_time))
 
 
-def log_request(client_id, request_id, latency, status):
+def log_request(client_id, request_id, latency, status, log_dir):
     #Opretter en mappe til logfiler, hvis den ikke allerede eksisterer
     log_dir = Path(log_dir)
     log_dir.mkdir(parents=True, exist_ok=True)
