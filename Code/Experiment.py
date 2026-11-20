@@ -74,7 +74,7 @@ def start_Capture(server, pcap_file, capture_duration):
 
 def main():
 
-    experiment_id = get_next_experiment_ID()
+    experiment_id = get_next_experiment_ID() - 1
     experiment_dir = Path("logs") / "csv" / f"experiment_{experiment_id:03d}"
 
     experiment_dir.mkdir(parents=True, exist_ok=True)
