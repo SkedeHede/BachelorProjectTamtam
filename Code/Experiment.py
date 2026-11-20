@@ -11,7 +11,7 @@ NUM_CLIENTS = 100          #Antal legitime klienter
 NUM_ATTACKERS = 0          #Antal angribere (0 = baseline)
 DURATION = 300             #Eksperimentets varighed i sekunder
 CLIENT_INTERVAL = 0.5      #Sekunder mellem klientrequests
-CAPTURE_DURATION = 310     #Varighed af packet capture
+CAPTURE_DURATION = DURATION + 15   #Varighed af packet capture
 
 EXPERIMENT_TYPE = "baseline"  #baseline / attack / mitigation
 
