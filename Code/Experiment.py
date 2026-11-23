@@ -10,19 +10,19 @@ from datetime import datetime
 #        Experiment configurations          #
 #===========================================#
 
-NUM_CLIENTS = 100          #Antal legitime klienter
-DURATION = 300             #Eksperimentets varighed i sekunder
+NUM_CLIENTS = 3          #Antal legitime klienter
+DURATION = 60             #Eksperimentets varighed i sekunder
 CLIENT_INTERVAL = 0.5      #Sekunder mellem klientrequests
 CAPTURE_DURATION = DURATION + 15   #Varighed af packet capture
 
-NUM_ATTACKERS = 0          #Antal angribere (0 = baseline)
+NUM_ATTACKERS = 1          #Antal angribere (0 = baseline)
 ATTACK_START = 15
 ATTACK_DURATION = 30
 ATTACK_RATE = 10
 
 
 
-EXPERIMENT_TYPE = "baseline"  #baseline / attack / mitigation
+EXPERIMENT_TYPE = "attack"  #baseline / attack / mitigation
 
 
 #Global counter til eksåerimentforsøg
@@ -79,6 +79,25 @@ def start_attacker(attacker, duration, rate, experiment_dir):
     return process
 
 
+def start_attackers(net, num_attackers, duration, rate, experiment_dir):
+    processes = []
+
+    for i in range(1, num_attackers + 1):
+        attacker = net.get(f"attacker{i}")
+
+        process = start_attacker(
+            attacker,
+            duration,
+            rate,
+            experiment_dir
+        )
+
+        processes.append(process)
+
+    return processes
+
+
+
 def start_Capture(server, pcap_file, capture_duration):
     process = server.popen(
 
@@ -101,7 +120,10 @@ def save_experiment_config(experiment_dir, experiment_id):
         "num_attackers": NUM_ATTACKERS,
         "duration_seconds": DURATION,
         "client_interval_seconds": CLIENT_INTERVAL,
-        "capture_duration_seconds": CAPTURE_DURATION
+        "capture_duration_seconds": CAPTURE_DURATION,
+        "attack_start_seconds": ATTACK_START,
+        "attack_duration_seconds": ATTACK_DURATION,
+        "attack_rate_per_attacker": ATTACK_RATE,
     }
 
     config_path = Path(experiment_dir) / "config.json"
@@ -112,47 +134,97 @@ def save_experiment_config(experiment_dir, experiment_id):
     print(f"Experiment configuration saved to {config_path}")
 
 
+
 def main():
 
-    experiment_id = get_next_experiment_ID()
-    experiment_dir = Path("logs") / "csv" / f"experiment_{experiment_id:03d}"
+    # Kontrollerer konfigurationen
+    if NUM_ATTACKERS > 0 and ATTACK_START + ATTACK_DURATION > DURATION:
+        raise ValueError("Attack duration exceeds experiment duration")
 
+    experiment_id = get_next_experiment_ID()
+
+    experiment_dir = (
+        Path("logs") / "csv" / f"experiment_{experiment_id:03d}"
+    )
     experiment_dir.mkdir(parents=True, exist_ok=True)
 
-
-    pcap_dir = Path("logs") / "pcap" 
+    pcap_dir = Path("logs") / "pcap"
     pcap_dir.mkdir(parents=True, exist_ok=True)
 
     pcap_file = pcap_dir / f"experiment_{experiment_id:03d}.pcap"
 
-    
     save_experiment_config(experiment_dir, experiment_id)
 
     net = create_network(
-        num_clients=NUM_CLIENTS, #ændret for nu
-        num_attackers=NUM_ATTACKERS, #0 for baseline experimentet
+        num_clients=NUM_CLIENTS,
+        num_attackers=NUM_ATTACKERS,
         interactive=False
     )
+
     try:
+        # Starter serveren
         server = net.get("server")
         start_server(server)
         time.sleep(1)
 
-        capture_process = start_Capture(server, pcap_file, CAPTURE_DURATION)
+        # Starter packet capture
+        capture_process = start_Capture(
+            server,
+            pcap_file,
+            CAPTURE_DURATION
+        )
         time.sleep(1)
 
-        processes = start_clients(net, num_clients=NUM_CLIENTS, duration=DURATION, experiment_dir=experiment_dir, interval=CLIENT_INTERVAL)
+        # Starter legitime klienter
+        processes = start_clients(
+            net,
+            num_clients=NUM_CLIENTS,
+            duration=DURATION,
+            experiment_dir=experiment_dir,
+            interval=CLIENT_INTERVAL
+        )
 
+        experiment_start = time.perf_counter()
+
+        # Starter attackers efter den angivne forsinkelse
+        attacker_processes = []
+
+        if NUM_ATTACKERS > 0:
+            remaining = ATTACK_START - (
+                time.perf_counter() - experiment_start
+            )
+
+            if remaining > 0:
+                time.sleep(remaining)
+
+            print("Starting attackers")
+
+            attacker_processes = start_attackers(
+                net,
+                num_attackers=NUM_ATTACKERS,
+                duration=ATTACK_DURATION,
+                rate=ATTACK_RATE,
+                experiment_dir=experiment_dir
+            )
+
+        # Venter på legitime klienter
         for process in processes:
             exit_code = process.wait()
             print(f"Client exit code: {exit_code}")
 
+        # Venter på attackers
+        for process in attacker_processes:
+            exit_code = process.wait()
+            print(f"Attacker exit code: {exit_code}")
+
+        # Venter på packet capture
         capture_exit_code = capture_process.wait()
         print(f"PacketCapture exit code: {capture_exit_code}")
+
     finally:
         net.stop()
         merge_csv(experiment_dir)
-    
+
 
 if __name__ == "__main__":
     setLogLevel("debug") #test fejl.
