@@ -1,17 +1,26 @@
 from Topology import create_network
+from Merge import merge_csv
 import time
 from mininet.log import setLogLevel #for at teste fejl
 from pathlib import Path
+import json
+from datetime import datetime
 
 #===========================================#
 #        Experiment configurations          #
 #===========================================#
 
 NUM_CLIENTS = 100          #Antal legitime klienter
-NUM_ATTACKERS = 0          #Antal angribere (0 = baseline)
 DURATION = 300             #Eksperimentets varighed i sekunder
 CLIENT_INTERVAL = 0.5      #Sekunder mellem klientrequests
 CAPTURE_DURATION = DURATION + 15   #Varighed af packet capture
+
+NUM_ATTACKERS = 0          #Antal angribere (0 = baseline)
+ATTACK_START = 15
+ATTACK_DURATION = 30
+ATTACK_RATE = 10
+
+
 
 EXPERIMENT_TYPE = "baseline"  #baseline / attack / mitigation
 
@@ -20,18 +29,16 @@ EXPERIMENT_TYPE = "baseline"  #baseline / attack / mitigation
 Counter_file = Path("Experiment_Counter.txt")
 
 def get_next_experiment_ID():
-    if Counter_file.exists():
-        with open(Counter_file, "r") as file:
-            counter = int(file.read())
-        counter += 1
-        
-        with open(Counter_file, "w") as file:
-            file.write(str(counter))
+    counter_file = Path("Experiment_Counter.txt")
+
+    if counter_file.exists():
+        experiment_id = int(counter_file.read_text().strip())
     else:
-        with open(Counter_file, "w") as file:
-            counter = 1
-            file.write(str(counter))
-    return counter
+        experiment_id = 0
+
+    counter_file.write_text(str(experiment_id + 1))
+
+    return experiment_id
 
 #Udfører kommando til at starte server
 def start_server(server):
@@ -59,6 +66,18 @@ def start_clients(net, num_clients, duration, experiment_dir, interval):
 
     return processes
 
+def start_attacker(attacker, duration, rate, experiment_dir):
+    process = attacker.popen(
+        "python3",
+        "Code/Attacker.py",
+        "--attacker-id", attacker.name,
+        "--duration", str(duration),
+        "--rate", str(rate),
+        "--log-dir", str(experiment_dir)
+    )
+
+    return process
+
 
 def start_Capture(server, pcap_file, capture_duration):
     process = server.popen(
@@ -72,9 +91,30 @@ def start_Capture(server, pcap_file, capture_duration):
 
     return process
 
+
+def save_experiment_config(experiment_dir, experiment_id):
+    config = {
+        "experiment_id": experiment_id,
+        "experiment_type": EXPERIMENT_TYPE,
+        "timestamp": datetime.now().isoformat(),
+        "num_clients": NUM_CLIENTS,
+        "num_attackers": NUM_ATTACKERS,
+        "duration_seconds": DURATION,
+        "client_interval_seconds": CLIENT_INTERVAL,
+        "capture_duration_seconds": CAPTURE_DURATION
+    }
+
+    config_path = Path(experiment_dir) / "config.json"
+
+    with open(config_path, "w") as file:
+        json.dump(config, file, indent=4)
+
+    print(f"Experiment configuration saved to {config_path}")
+
+
 def main():
 
-    experiment_id = get_next_experiment_ID() - 1
+    experiment_id = get_next_experiment_ID()
     experiment_dir = Path("logs") / "csv" / f"experiment_{experiment_id:03d}"
 
     experiment_dir.mkdir(parents=True, exist_ok=True)
@@ -84,6 +124,9 @@ def main():
     pcap_dir.mkdir(parents=True, exist_ok=True)
 
     pcap_file = pcap_dir / f"experiment_{experiment_id:03d}.pcap"
+
+    
+    save_experiment_config(experiment_dir, experiment_id)
 
     net = create_network(
         num_clients=NUM_CLIENTS, #ændret for nu
@@ -108,6 +151,7 @@ def main():
         print(f"PacketCapture exit code: {capture_exit_code}")
     finally:
         net.stop()
+        merge_csv(experiment_dir)
     
 
 if __name__ == "__main__":
