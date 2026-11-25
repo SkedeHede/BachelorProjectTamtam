@@ -23,8 +23,12 @@ ATTACK_DURATION = 30 + CLIENT_OFFSET*NUM_CLIENTS
 ATTACK_RATE = 10    #Er dette SYN packets per sekund? 
 
 
-
 EXPERIMENT_TYPE = "attack"  #baseline / attack / mitigation
+
+#Network configurations
+SERVER_BW = 100       # Mbps
+HOST_BW = 100         # Mbps
+LINK_DELAY = "5ms"    # Delay per link
 
 
 #Global counter til eksåerimentforsøg
@@ -129,6 +133,9 @@ def save_experiment_config(experiment_dir, experiment_id):
         "attack_start_seconds": ATTACK_START,
         "attack_duration_seconds": ATTACK_DURATION,
         "attack_rate_per_attacker": ATTACK_RATE,
+        "server_bandwidth_mbps": SERVER_BW,
+        "host_bandwidth_mbps": HOST_BW,
+        "link_delay": LINK_DELAY,
     }
 
     config_path = Path(experiment_dir) / "config.json"
@@ -163,7 +170,10 @@ def main():
     net = create_network(
         num_clients=NUM_CLIENTS,
         num_attackers=NUM_ATTACKERS,
-        interactive=False
+        interactive=False,
+        server_bw=SERVER_BW,
+        host_bw=HOST_BW,
+        link_delay=LINK_DELAY
     )
 
     try:
@@ -186,8 +196,7 @@ def main():
             num_clients=NUM_CLIENTS,
             duration=DURATION,
             experiment_dir=experiment_dir,
-            interval=CLIENT_INTERVAL,
-            start_offset=START_OFFSET
+            interval=CLIENT_INTERVAL
         )
 
         experiment_start = time.perf_counter()

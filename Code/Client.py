@@ -1,4 +1,3 @@
-
 #Implementerer legitime HTTP-klienter, som sender GET-requests til serveren og måler latenstid
 import time         #Bruges til tidsmåling og pauser mellem requests
 import argparse     #Bruges til at angive parametre ved kørsel af programmet
@@ -8,6 +7,9 @@ import http.client  #Bruges til at sende HTTP-requests og modtage HTTP-responses
 import csv
 from datetime import datetime
 from pathlib import Path
+
+#Imports for offset og randomization
+import random
 
 
 #Serverens IP og port i Mininet

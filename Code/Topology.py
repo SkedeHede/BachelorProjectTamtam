@@ -3,6 +3,7 @@ from mininet.net import Mininet
 from mininet.node import OVSBridge
 from mininet.cli import CLI
 from mininet.log import setLogLevel
+from mininet.link import TCLink #for bitrate limiting
 
 import argparse
 
@@ -21,13 +22,14 @@ class ScalableOVSBridge(OVSBridge):
             if self.ports[intf] and not intf.IP():
                 self.attach(intf)
 
-def create_network(num_clients=100, num_attackers=1, interactive=True): #hardcoded number of clients
+def create_network(num_clients=100, num_attackers=1, interactive=True, server_bw=100, host_bw=100, link_delay="5ms"): #hardcoded number of clients
     net = Mininet(
-    topo=None,
-    build=False,
-    controller=None,
-    switch=ScalableOVSBridge 
-)
+        topo=None,
+        build=False,
+        controller=None,
+        switch=ScalableOVSBridge,
+        link=TCLink
+    )
 
     #Create server
     #server = net.addHost("server", ip="10.0.0.1")
@@ -38,7 +40,7 @@ def create_network(num_clients=100, num_attackers=1, interactive=True): #hardcod
     print("Switch type:", type(switch)) #test for at se om korrekt
 
     #Connect server to switch
-    net.addLink(server, switch)
+    net.addLink(server, switch, bw=server_bw, delay=link_delay)
 
     #Create legitimate clients
     for i in range(1, num_clients + 1):
@@ -46,13 +48,13 @@ def create_network(num_clients=100, num_attackers=1, interactive=True): #hardcod
             f"client{i}",
             ip=f"10.0.0.{i + 1}/24" #tilføjet /24 som subnet maske for test
         )
-        net.addLink(client, switch)
+        net.addLink(client, switch, bw=host_bw, delay=link_delay)
     for i in range(1, num_attackers + 1):
         attacker = net.addHost(
             f"attacker{i}",
             ip=f"10.0.0.{i + 101}/24"
         )
-        net.addLink(attacker, switch)
+        net.addLink(attacker, switch, bw=host_bw, delay=link_delay)
 
     #build network
     net.build()
