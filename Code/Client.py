@@ -11,20 +11,100 @@ from pathlib import Path
 #Imports for offset og randomization
 import random
 
+#Import for threading
+import threading
+
 
 #Serverens IP og port i Mininet
 SERVER_IP = "10.0.0.1"
 SERVER_PORT = 5000
 
+CSV_LOCK = threading.Lock() #threading safety
+
+#for opsætning af parralelle syn forbindelser
+PARALLEL_PROBABILITY = 0.10
+MAX_EXTRA_CONNECTIONS = 4
+
+def send_single_request(request_id, client_id, log_dir):
+
+    connection = None
+    latency_ms = None
+    error_message = None
+
+    try:
+        #Opretter en individuel HTTP-forbindelse
+        connection = http.client.HTTPConnection(
+            SERVER_IP, SERVER_PORT, timeout=5
+        )
+
+        #Starter tidsmålingen
+        request_start = time.perf_counter()
+
+        #Sender HTTP GET-request
+        connection.request("GET", "/")
+
+        #Modtager HTTP-response og læser data
+        response = connection.getresponse()
+        data = response.read()
+
+        #Stopper tidsmålingen
+        request_end = time.perf_counter()
+        latency_ms = (request_end - request_start) * 1000
+
+        #Kontrollerer HTTP-response
+        if response.status == 200 and len(data) == 10240:
+            status = "SUCCESS"
+        else:
+            status = "FAILED"
+            error_message = (
+                f"HTTP status: {response.status}, "
+                f"Received bytes: {len(data)}, "
+                f"Expected bytes: 10240"
+            )
+
+        print(
+            f"Request {request_id}: {status} | "
+            f"HTTP {response.status} | "
+            f"{len(data)} bytes | "
+            f"Latency: {latency_ms:.3f} ms"
+        )
+
+    except TimeoutError as error:
+        status = "TIMEOUT"
+        error_message = str(error)
+        print(f"Request {request_id}: TIMEOUT - {error}")
+
+    except OSError as error:
+        status = "CONNECTION_ERROR"
+        error_message = str(error)
+        print(f"Request {request_id}: CONNECTION_ERROR - {error}")
+
+    except http.client.HTTPException as error:
+        status = "HTTP_ERROR"
+        error_message = str(error)
+        print(f"Request {request_id}: HTTP_ERROR - {error}")
+
+    finally:
+        if connection is not None:
+            connection.close()
+
+    #Gemmer resultatet i klientens CSV-logfil
+    log_request(
+        client_id=client_id,
+        request_id=request_id,
+        latency=latency_ms,
+        status=status,
+        log_dir=log_dir,
+        error_message=error_message
+    )
 
 def send_requests(num_requests, interval, client_id, duration=None, log_dir="logs"):
-    #Sender HTTP-requests indtil det ønskede antal eller forsøgsvarighed er nået
-
     #Starter tidsmålingen for hele eksperimentet
     experiment_start = time.perf_counter()
     i = 0
 
     while True:
+
         #Stopper når det ønskede antal requests er sendt
         if num_requests is not None and i >= num_requests:
             break
@@ -36,114 +116,51 @@ def send_requests(num_requests, interval, client_id, duration=None, log_dir="log
             if elapsed_time >= duration:
                 break
 
-        #Øger requestnummeret
-        i += 1
+        #Bestemmer antallet af HTTP-requests i denne gruppe
+        num_connections = 1
 
-        #Initialiserer forbindelsen som None, så den kan lukkes i finally-blokken
-        connection = None
+        #10% sandsynlighed for ekstra parallelle forbindelser
+        if random.random() < PARALLEL_PROBABILITY:
+            num_connections += random.randint(1, MAX_EXTRA_CONNECTIONS)
 
-        try:
-            #Opretter en HTTP-forbindelse til serveren med en timeout på 5 sekunder
-            connection = http.client.HTTPConnection(
-                SERVER_IP, SERVER_PORT, timeout=5
+        #Sikrer at det maksimale antal requests ikke overskrides
+        if num_requests is not None:
+            num_connections = min(num_connections, num_requests - i)
+
+        #Debugging af parallelle HTTP-forbindelser______________________________________
+        if num_connections > 1:
+            print(f"{client_id}: Starting {num_connections} parallel connections")
+        #debug slut_____________________________________________________________________
+
+        #Liste til at holde styr på trådene
+        threads = []
+
+        #Opretter og starter en tråd for hvert HTTP-request
+        for j in range(num_connections):
+            i += 1
+
+            thread = threading.Thread(
+                target=send_single_request,
+                args=(i, client_id, log_dir)
             )
 
-            #Starter tidsmålingen for det enkelte request
-            request_start = time.perf_counter()
+            threads.append(thread)
+            thread.start()
 
-            #Sender et HTTP GET-request til serverens rod ("/")
-            connection.request("GET", "/")
+        #Venter på at alle tråde i gruppen er færdige
+        for thread in threads:
+            thread.join()
 
-            #Modtager HTTP-responsen fra serveren
-            response = connection.getresponse()
-
-            #Læser data fra HTTP-responsen (forventet 10240 bytes = 10 KiB)
-            data = response.read()
-
-            #Stopper tidsmålingen for det enkelte request
-            request_end = time.perf_counter()
-
-            #Udregner latenstiden i millisekunder
-            latency_ms = (request_end - request_start) * 1000
-
-            #Tjekker om HTTP-responsen er 200 OK, og om datamængden er 10240 bytes
-            #Hvis begge betingelser er opfyldt, markeres requestet som SUCCESS
-            #Ellers markeres det som FAILED
-            if response.status == 200 and len(data) == 10240:
-                status = "SUCCESS"
-            else:
-                status = "FAILED"
-
-            #Udskriver resultatet af requestet i terminalen
-            print(
-                f"Request {i}: {status} | "
-                f"HTTP {response.status} | "
-                f"{len(data)} bytes | "
-                f"Latency: {latency_ms:.3f} ms"
-            )
-
-            #Gemmer requestnummer, latenstid og status i klientens CSV-logfil
-            log_request(
-                client_id=client_id,
-                request_id=i,
-                latency=latency_ms,
-                status=status,
-                log_dir=log_dir
-            )
-
-        #Registrerer timeout og gemmer resultatet i logfilen
-        except TimeoutError:
-            print(f"Request {i}: TIMEOUT")
-
-            log_request(
-                client_id=client_id,
-                request_id=i,
-                latency=None,
-                status="TIMEOUT",
-                log_dir=log_dir
-            )
-
-        #Registrerer netværks- og forbindelsesfejl og gemmer resultatet i logfilen
-        except OSError as error:
-            print(f"Request {i}: CONNECTION_ERROR - {error}")
-
-            log_request(
-                client_id=client_id,
-                request_id=i,
-                latency=None,
-                status="CONNECTION_ERROR",
-                log_dir=log_dir
-            )
-
-        #Registrerer HTTP-protokolfejl og gemmer resultatet i logfilen
-        except http.client.HTTPException as error:
-            print(f"Request {i}: HTTP_ERROR - {error}")
-
-            log_request(
-                client_id=client_id,
-                request_id=i,
-                latency=None,
-                status="HTTP_ERROR",
-                log_dir=log_dir
-            )
-
-        #Lukker HTTP-forbindelsen, uanset om requestet lykkedes eller fejlede
-        finally:
-            if connection is not None:
-                connection.close()
-
-        #Venter det angivne interval mellem requests
-        #Der ventes ikke efter det sidste request ved antalsbaserede forsøg
+        #Venter et eksponentialfordelt interval mellem requests
         if num_requests is None or i < num_requests:
-            
+
             delay = random.expovariate(1 / interval)
 
             if duration is None:
-                
                 time.sleep(delay)
 
             else:
-                #Beregner hvor lang tid der er tilbage af eksperimentet
+                #Beregner resterende forsøgsvarighed
                 remaining_time = duration - (
                     time.perf_counter() - experiment_start
                 )
@@ -153,41 +170,46 @@ def send_requests(num_requests, interval, client_id, duration=None, log_dir="log
                     time.sleep(min(delay, remaining_time))
 
 
-def log_request(client_id, request_id, latency, status, log_dir):
-    #Opretter en mappe til logfiler, hvis den ikke allerede eksisterer
+def log_request(client_id, request_id, latency, status, log_dir, error_message=None):
+
+    #Opretter en mappe til logfiler
     log_dir = Path(log_dir)
     log_dir.mkdir(parents=True, exist_ok=True)
 
     #Opretter en separat logfil for hver klient
     log_file = log_dir / f"client_{client_id}_log.csv"
 
-    #Tjekker om logfilen allerede eksisterer
-    file_exists = log_file.exists()
+    #Gemmer tidspunktet inden tråden eventuelt skal vente på låsen
+    timestamp = datetime.now().isoformat()
 
-    #Åbner CSV-filen i append-tilstand, så tidligere målinger ikke overskrives
-    with open(log_file, mode="a", newline="") as csvfile:
+    #Sikrer at kun én tråd skriver til CSV-filen ad gangen
+    with CSV_LOCK:
 
-        #Definerer kolonnerne i CSV-filen
-        fieldnames = [
-            "timestamp",
-            "request_id",
-            "latency_ms",
-            "status"
-        ]
+        #Tjekker om logfilen allerede eksisterer
+        file_exists = log_file.exists()
 
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        with open(log_file, mode="a", newline="") as csvfile:
 
-        #Skriver kolonneoverskrifter, hvis filen er ny
-        if not file_exists:
-            writer.writeheader()
+            fieldnames = [
+                "timestamp",
+                "request_id",
+                "latency_ms",
+                "status",
+                "error_message"
+            ]
 
-        #Gemmer tidspunkt, requestnummer, latenstid og status
-        writer.writerow({
-            "timestamp": datetime.now().isoformat(),
-            "request_id": request_id,
-            "latency_ms": latency,
-            "status": status
-        })
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+            if not file_exists:
+                writer.writeheader()
+
+            writer.writerow({
+                "timestamp": timestamp,
+                "request_id": request_id,
+                "latency_ms": latency,
+                "status": status,
+                "error_message": error_message
+            })
 
 
 #Udføres kun, når Client.py køres direkte

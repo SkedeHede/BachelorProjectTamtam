@@ -30,6 +30,10 @@ SERVER_BW = 20      #Mbps
 HOST_BW = 20         #Mbps
 LINK_DELAY = "5ms"    #delay per link /network delay
 
+#Parallel HTTP configurations
+PARALLEL_PROBABILITY = 0.10  #10% sandsynlighed
+MAX_EXTRA_CONNECTIONS = 4   #Maksimalt 4 ekstra forbindelser
+
 
 #Global counter til eksåerimentforsøg
 Counter_file = Path("Experiment_Counter.txt")
@@ -58,7 +62,9 @@ def start_client(client, duration, experiment_dir, interval):
     "--duration", str(duration),
     "--interval", str(interval),
     "--client-id", client.name,
-    "--log-dir", str(experiment_dir)
+    "--log-dir", str(experiment_dir),
+    "--parallel-probability", str(PARALLEL_PROBABILITY),
+    "--max-extra-connections", str(MAX_EXTRA_CONNECTIONS)
     )
     return process
 
@@ -138,6 +144,8 @@ def save_experiment_config(experiment_dir, experiment_id):
         "server_bandwidth_mbps": SERVER_BW,
         "host_bandwidth_mbps": HOST_BW,
         "link_delay": LINK_DELAY,
+        "parallel_probability": PARALLEL_PROBABILITY,
+        "max_extra_connections": MAX_EXTRA_CONNECTIONS,
     }
 
     config_path = Path(experiment_dir) / "config.json"
