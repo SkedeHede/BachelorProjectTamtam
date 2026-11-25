@@ -13,7 +13,7 @@ from datetime import datetime
 CLIENT_OFFSET = 0.1                                             #Sekunder mellem klienters start (for at undgå synkronisering)
 NUM_CLIENTS = 3                                                 #Antal legitime klienter
 DURATION = 60  + CLIENT_OFFSET*NUM_CLIENTS                      #Eksperimentets varighed i sekunder
-CLIENT_INTERVAL = 0.5                                           #Sekunder mellem klientrequests
+CLIENT_INTERVAL = 0.5                                           #Gennemsnitlig ventetid mellem requests
 CAPTURE_DURATION = DURATION + 15 + CLIENT_OFFSET*NUM_CLIENTS    #Varighed af packet capture
 
 
@@ -128,7 +128,9 @@ def save_experiment_config(experiment_dir, experiment_id):
         "num_clients": NUM_CLIENTS,
         "num_attackers": NUM_ATTACKERS,
         "duration_seconds": DURATION,
+        "client_interval_distribution": "exponential",
         "client_interval_seconds": CLIENT_INTERVAL,
+        "client_interval_lambda": 1 / CLIENT_INTERVAL,
         "capture_duration_seconds": CAPTURE_DURATION,
         "attack_start_seconds": ATTACK_START,
         "attack_duration_seconds": ATTACK_DURATION,

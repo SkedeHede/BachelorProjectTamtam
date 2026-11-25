@@ -135,9 +135,12 @@ def send_requests(num_requests, interval, client_id, duration=None, log_dir="log
         #Venter det angivne interval mellem requests
         #Der ventes ikke efter det sidste request ved antalsbaserede forsøg
         if num_requests is None or i < num_requests:
+            
+            delay = random.expovariate(1 / interval)
 
             if duration is None:
-                time.sleep(interval)
+                
+                time.sleep(delay)
 
             else:
                 #Beregner hvor lang tid der er tilbage af eksperimentet
@@ -147,7 +150,7 @@ def send_requests(num_requests, interval, client_id, duration=None, log_dir="log
 
                 #Venter højst den resterende forsøgsvarighed
                 if remaining_time > 0:
-                    time.sleep(min(interval, remaining_time))
+                    time.sleep(min(delay, remaining_time))
 
 
 def log_request(client_id, request_id, latency, status, log_dir):
@@ -256,8 +259,8 @@ if __name__ == "__main__":
         parser.error("Specify either --requests or --duration, not both")
 
     #Kontrollerer at intervallet ikke er negativt
-    if args.interval < 0:
-        parser.error("--interval must be non-negative")
+    if args.interval <= 0:
+        parser.error("--interval must be positive")
 
     #Starter klienten med de angivne parametre
     send_requests(
