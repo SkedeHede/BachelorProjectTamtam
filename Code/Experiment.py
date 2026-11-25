@@ -26,9 +26,9 @@ ATTACK_RATE = 10    #Er dette SYN packets per sekund?
 EXPERIMENT_TYPE = "attack"  #baseline / attack / mitigation
 
 #Network configurations
-SERVER_BW = 100       # Mbps
-HOST_BW = 100         # Mbps
-LINK_DELAY = "5ms"    # Delay per link
+SERVER_BW = 20      #Mbps
+HOST_BW = 20         #Mbps
+LINK_DELAY = "5ms"    #delay per link /network delay
 
 
 #Global counter til eksåerimentforsøg

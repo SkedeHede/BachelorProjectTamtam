@@ -1,12 +1,15 @@
 #https://docs.python.org/3/library/http.server.html
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+import time
 #http.server er beregnet til brug af udvikling og test, ikke produktion (grundet sikkerhed)
 HOST = "0.0.0.0"
 PORT = 5000
+PROCESSING_DELAY = 0.01  # 10 ms
 data = b"A" * 10240 #Data, der sendes som svar til klienten (10*1024 = 10240 bytes ≈ 10 KB)
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self): #Håndterer HTTP GET-requests
+        time.sleep(PROCESSING_DELAY) #vent 10 ms for at simulere serverbehandlingstid. tcp handshake tager 20ms nu
         self.send_response(200) #Returnerer en 200 OK statuskode, som fortæller at serveren har modtaget og forstået requesten
         self.send_header("Content-type", "text/plain") #Angiver at indholdet af svaret er almindelig tekst
         self.send_header("Content-Length", str(len(data)))
