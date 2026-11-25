@@ -10,15 +10,17 @@ from datetime import datetime
 #        Experiment configurations          #
 #===========================================#
 
-NUM_CLIENTS = 3          #Antal legitime klienter
-DURATION = 60             #Eksperimentets varighed i sekunder
-CLIENT_INTERVAL = 0.5      #Sekunder mellem klientrequests
-CAPTURE_DURATION = DURATION + 15   #Varighed af packet capture
+CLIENT_OFFSET = 0.1                                             #Sekunder mellem klienters start (for at undgå synkronisering)
+NUM_CLIENTS = 3                                                 #Antal legitime klienter
+DURATION = 60  + CLIENT_OFFSET*NUM_CLIENTS                      #Eksperimentets varighed i sekunder
+CLIENT_INTERVAL = 0.5                                           #Sekunder mellem klientrequests
+CAPTURE_DURATION = DURATION + 15 + CLIENT_OFFSET*NUM_CLIENTS    #Varighed af packet capture
 
-NUM_ATTACKERS = 1          #Antal angribere (0 = baseline)
-ATTACK_START = 15
-ATTACK_DURATION = 30
-ATTACK_RATE = 10
+
+NUM_ATTACKERS = 1                                   #Antal angribere (0 = baseline)
+ATTACK_START = 15 + CLIENT_OFFSET*NUM_CLIENTS
+ATTACK_DURATION = 30 + CLIENT_OFFSET*NUM_CLIENTS
+ATTACK_RATE = 10    #Er dette SYN packets per sekund? 
 
 
 
@@ -63,6 +65,9 @@ def start_clients(net, num_clients, duration, experiment_dir, interval):
         client = net.get(f"client{i}")
         process = start_client(client, duration, experiment_dir, interval)
         processes.append(process)
+
+        if i < num_clients: #OFFSET
+            time.sleep(CLIENT_OFFSET)  #Vent mellem klienter for at undgå synkronisering
 
     return processes
 
@@ -181,7 +186,8 @@ def main():
             num_clients=NUM_CLIENTS,
             duration=DURATION,
             experiment_dir=experiment_dir,
-            interval=CLIENT_INTERVAL
+            interval=CLIENT_INTERVAL,
+            start_offset=START_OFFSET
         )
 
         experiment_start = time.perf_counter()
