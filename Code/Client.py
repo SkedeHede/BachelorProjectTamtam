@@ -22,8 +22,9 @@ SERVER_PORT = 5000
 CSV_LOCK = threading.Lock() #threading safety
 
 #for opsætning af parralelle syn forbindelser
-PARALLEL_PROBABILITY = 0.10
-MAX_EXTRA_CONNECTIONS = 4
+#det er nu defineret i experiment i stedet
+#PARALLEL_PROBABILITY = 0.10
+#MAX_EXTRA_CONNECTIONS = 4
 
 def send_single_request(request_id, client_id, log_dir):
 
@@ -98,7 +99,7 @@ def send_single_request(request_id, client_id, log_dir):
         error_message=error_message
     )
 
-def send_requests(num_requests, interval, client_id, duration=None, log_dir="logs"):
+def send_requests(num_requests, interval, client_id, duration=None, log_dir="logs", parallel_probability=0.10, max_extra_connections=4):
     #Starter tidsmålingen for hele eksperimentet
     experiment_start = time.perf_counter()
     i = 0
@@ -120,8 +121,8 @@ def send_requests(num_requests, interval, client_id, duration=None, log_dir="log
         num_connections = 1
 
         #10% sandsynlighed for ekstra parallelle forbindelser
-        if random.random() < PARALLEL_PROBABILITY:
-            num_connections += random.randint(1, MAX_EXTRA_CONNECTIONS)
+        if random.random() < parallel_probability:
+            num_connections += random.randint(1, max_extra_connections)
 
         #Sikrer at det maksimale antal requests ikke overskrides
         if num_requests is not None:
@@ -260,6 +261,22 @@ if __name__ == "__main__":
         help="Directory for client log files"
     )
 
+    #Sandsynlighed for ekstra parallelle HTTP-forbindelser
+    parser.add_argument(
+        "--parallel-probability",
+        type=float,
+        default=0.10,
+        help="Probability of extra parallel HTTP connections"
+    )
+
+    #Maksimalt antal ekstra parallelle forbindelser
+    parser.add_argument(
+        "--max-extra-connections",
+        type=int,
+        default=4,
+        help="Maximum number of extra parallel connections"
+    )
+
     #Indlæser argumenterne fra kommandolinjen
     args = parser.parse_args()
 
@@ -284,11 +301,21 @@ if __name__ == "__main__":
     if args.interval <= 0:
         parser.error("--interval must be positive")
 
+    #Kontrollerer at sandsynligheden ligger mellem 0 og 1
+    if not 0 <= args.parallel_probability <= 1:
+        parser.error("--parallel-probability must be between 0 and 1")
+
+    #Kontrollerer at maksimalt antal ekstra forbindelser er positivt
+    if args.max_extra_connections < 1:
+        parser.error("--max-extra-connections must be positive")
+
     #Starter klienten med de angivne parametre
     send_requests(
         args.requests,
         args.interval,
         args.client_id,
         args.duration,
-        args.log_dir
+        args.log_dir,
+        args.parallel_probability,
+        args.max_extra_connections
     )

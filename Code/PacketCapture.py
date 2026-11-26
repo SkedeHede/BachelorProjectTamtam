@@ -1,4 +1,4 @@
-from scapy.all import sniff, wrpcap, IP, TCP
+from scapy.all import sniff, wrpcap
 
 import argparse
 from pathlib import Path
@@ -37,6 +37,11 @@ packets = sniff(
 wrpcap(str(output_file), packets)
 
 
+print(f"Captured {len(packets)} packets")
+print(f"PCAP file saved to {output_file}")
+"""
+Der er ikke behov for dette længere, da vi allerede har gemt pakkene i en pcap-fil.
+derudover gør det vores buffer bliver fuld og programmet ikke lukker ordentligt. Vi bruger i stedet de 2 linjer ovenfor
 for p in packets:
     if IP in p and TCP in p:
         print(f"Source IP: {p[IP].src}")
@@ -44,3 +49,4 @@ for p in packets:
         print(f"Source port: {p[TCP].sport}")
         print(f"Destination port: {p[TCP].dport}")
         print(f"TCP flags: {p[TCP].flags}")
+"""
