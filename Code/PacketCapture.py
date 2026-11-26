@@ -26,7 +26,7 @@ args = parser.parse_args()
 output_file = Path(args.output)
 output_file.parent.mkdir(parents=True, exist_ok=True)
 
-# Opfang de første 20 TCP-pakker
+# Opfang de pakker i angivet tidsrum.
 packets = sniff(
     iface="server-eth0", #Serverens netværksinterface (server-eth0 for mininet)
     filter="tcp port 5000", #Filtrer kun TCP-pakker (tcp port 5000)

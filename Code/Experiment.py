@@ -64,7 +64,9 @@ def start_client(client, duration, experiment_dir, interval):
     "--client-id", client.name,
     "--log-dir", str(experiment_dir),
     "--parallel-probability", str(PARALLEL_PROBABILITY),
-    "--max-extra-connections", str(MAX_EXTRA_CONNECTIONS)
+    "--max-extra-connections", str(MAX_EXTRA_CONNECTIONS),
+    stdout=None, #test
+    stderr=None #test
     )
     return process
 
@@ -252,5 +254,5 @@ def main():
 
 
 if __name__ == "__main__":
-    setLogLevel("debug") #test fejl.
+    setLogLevel("warning") #test fejl.
     main()

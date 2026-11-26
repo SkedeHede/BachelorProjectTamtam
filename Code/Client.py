@@ -2,6 +2,7 @@
 import time         #Bruges til tidsmåling og pauser mellem requests
 import argparse     #Bruges til at angive parametre ved kørsel af programmet
 import http.client  #Bruges til at sende HTTP-requests og modtage HTTP-responses
+import socket       #Bruges til at håndtere netværksforbindelser
 
 #Importerer nødvendige biblioteker til at gemme i CSV-filer
 import csv
@@ -21,10 +22,152 @@ SERVER_PORT = 5000
 
 CSV_LOCK = threading.Lock() #threading safety
 
-#for opsætning af parralelle syn forbindelser
-#det er nu defineret i experiment i stedet
-#PARALLEL_PROBABILITY = 0.10
-#MAX_EXTRA_CONNECTIONS = 4
+
+""" brugt til at teste HTTP1.1 persistent connections i stedet for HTTP1.0. 
+def test_persistent_connection():
+
+    connection = http.client.HTTPConnection(
+        SERVER_IP, SERVER_PORT, timeout=5
+    )
+
+    try:
+        for i in range(3):
+
+            connection.request("GET", "/")
+
+            response = connection.getresponse()
+            data = response.read()
+
+            print(
+                f"Request {i + 1}: "
+                f"HTTP {response.status}, "
+                f"{len(data)} bytes"
+            )
+
+            print(f"Socket: {connection.sock.getsockname()}")
+
+    finally:
+        connection.close()
+"""
+
+
+def send_pipelined_requests(request_ids, client_id, log_dir):
+
+    start_times = {}
+    completed_requests = set()  
+
+    connection_start = time.perf_counter() #startet før 3-way-handshake
+    try:
+        #Opretter én TCP-forbindelse
+        with socket.create_connection(
+            (SERVER_IP, SERVER_PORT), timeout=5
+        ) as connection:
+
+            #Definerer et HTTP/1.1 GET-request. Dette skal gøres da http.client.HTTPConnection ikke understøtter pipelining direkte.
+            request = (
+                "GET / HTTP/1.1\r\n"
+                f"Host: {SERVER_IP}:{SERVER_PORT}\r\n"
+                "Connection: keep-alive\r\n"
+                "\r\n"
+            ).encode()
+
+            #Sender alle requests uden at vente på responses
+            for i, request_id in enumerate(request_ids):
+                if i == 0:
+                    start_times[request_id] = connection_start
+                else:
+                    start_times[request_id] = time.perf_counter()
+                connection.sendall(request)
+
+            #Bruger fælles buffer til at læse svar
+            with connection.makefile("rb") as reader:
+
+                for request_id in request_ids: #returner svar i samme rækkefølge som requests blev sendt
+                    status_line = reader.readline().decode().strip()
+                    content_length = None #reset længde efter hver response
+
+                    #Kontrollerer HTTP-statuslinjen
+                    if not status_line.startswith("HTTP/"):
+                        raise ValueError("Invalid HTTP status line")
+
+                    status_code = int(status_line.split()[1])
+
+                    #Læser HTTP-header
+                    while True:
+                        line = reader.readline()
+
+                        if not line: #fejl afbrudt hvis ikke flere byte modtages
+                            raise ConnectionError("Unexpected end while reading HTTP headers")
+
+                        if line == b"\r\n":
+                            break
+
+                        if line.lower().startswith(b"content-length:"):
+                            content_length = int(line.split(b":", 1)[1])
+
+                    if content_length is None or content_length < 0:
+                        raise ValueError("Missing Content-Length")
+
+                    #læser HTTP-response body
+                    data = reader.read(content_length)
+
+                    if len(data) != content_length:
+                        raise ConnectionError("Incomplete response")
+
+                    #beregner individuel latency
+                    request_end = time.perf_counter()
+
+                    latency_ms = (request_end - start_times[request_id]) * 1000
+
+                    #Kontrollerer HTTP-response
+                    error_message = None
+
+                    if status_code == 200 and len(data) == 10240:
+                        status = "SUCCESS"
+                    else:
+                        status = "FAILED"
+                        error_message = (
+                            f"HTTP status: {status_code}, "
+                            f"Received bytes: {len(data)}, "
+                            f"Expected bytes: 10240"
+                        )
+
+                    #Logger det individuelle request
+                    log_request(
+                        client_id=client_id,
+                        request_id=request_id,
+                        latency=latency_ms,
+                        status=status,
+                        log_dir=log_dir,
+                        error_message=error_message
+                    )
+
+                    completed_requests.add(request_id)
+
+    except (OSError, ValueError, IndexError) as error:
+
+        if isinstance(error, TimeoutError):
+            status = "TIMEOUT"
+        elif isinstance(error, OSError):
+            status = "CONNECTION_ERROR"
+        else:
+            status = "HTTP_ERROR"
+
+        #Logger alle requests, som ikke blev færdigbehandlet
+        for request_id in request_ids:
+
+            if request_id not in completed_requests:
+
+                log_request(
+                    client_id=client_id,
+                    request_id=request_id,
+                    latency=None,
+                    status=status,
+                    log_dir=log_dir,
+                    error_message=str(error)
+                )
+                    
+
 
 def send_single_request(request_id, client_id, log_dir):
 
@@ -63,12 +206,13 @@ def send_single_request(request_id, client_id, log_dir):
                 f"Expected bytes: 10240"
             )
 
-        print(
+            """debugging af HTTP-respons
+            print(
             f"Request {request_id}: {status} | "
             f"HTTP {response.status} | "
             f"{len(data)} bytes | "
             f"Latency: {latency_ms:.3f} ms"
-        )
+            )"""
 
     except TimeoutError as error:
         status = "TIMEOUT"
@@ -127,11 +271,6 @@ def send_requests(num_requests, interval, client_id, duration=None, log_dir="log
         #Sikrer at det maksimale antal requests ikke overskrides
         if num_requests is not None:
             num_connections = min(num_connections, num_requests - i)
-
-        #Debugging af parallelle HTTP-forbindelser______________________________________
-        if num_connections > 1:
-            print(f"{client_id}: Starting {num_connections} parallel connections")
-        #debug slut_____________________________________________________________________
 
         #Liste til at holde styr på trådene
         threads = []

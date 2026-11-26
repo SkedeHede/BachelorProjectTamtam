@@ -8,6 +8,8 @@ PROCESSING_DELAY = 0.01  # 10 ms
 data = b"A" * 10240 #Data, der sendes som svar til klienten (10*1024 = 10240 bytes ≈ 10 KB)
 
 class RequestHandler(BaseHTTPRequestHandler):
+    #BaseHTTPRequestHandler bruger HTTP/1.0 som standard.
+    protocol_version = "HTTP/1.1" #ændres til HTTP/1.1 for at understøtte persistent connections (altså pipelining)
     def do_GET(self): #Håndterer HTTP GET-requests
         time.sleep(PROCESSING_DELAY) #vent 10 ms for at simulere serverbehandlingstid. tcp handshake tager 20ms nu
         self.send_response(200) #Returnerer en 200 OK statuskode, som fortæller at serveren har modtaget og forstået requesten

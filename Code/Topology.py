@@ -7,7 +7,7 @@ from mininet.link import TCLink #for bitrate limiting
 
 import argparse
 
-#fået af chat, ændrer opstarten så porte bliver tilføjet enkeltvis, så der ikke er problemer med at tilføje for mange porte på en gang
+#ScalableOVSBridge fået af chat, ændrer opstarten så porte bliver tilføjet enkeltvis, så der ikke er problemer med at tilføje for mange porte på en gang
 class ScalableOVSBridge(OVSBridge):
 
     def start(self, controllers):
@@ -37,7 +37,7 @@ def create_network(num_clients=100, num_attackers=1, interactive=True, server_bw
     
     #Create switch
     switch = net.addSwitch("s1")
-    print("Switch type:", type(switch)) #test for at se om korrekt
+    #print("Switch type:", type(switch)) #test for at se om korrekt
 
     #Connect server to switch
     net.addLink(server, switch, bw=server_bw, delay=link_delay)
@@ -74,7 +74,7 @@ def create_network(num_clients=100, num_attackers=1, interactive=True, server_bw
     """
 
     #test 5 klienter for at se om det hele bliver sat op
-    print("=== TEST AF NETVÆRK ===")
+    #print("=== TEST AF NETVÆRK ===")
 
 
     server = net.get("server")
